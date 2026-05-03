@@ -1,0 +1,60 @@
+.register-row {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 20px;
+}
+
+/* اللوجو */
+.register-logo-col {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.register-logo-col img {
+  width: 450px;   /* أكبر من الكارد */
+  max-width: 90%;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 25px;
+}
+
+/* الكارد */
+.register-col {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.register-col .card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+/* الفورم */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+/* الحقول */
+input {
+  border-radius: 10px !important;
+  padding: 10px !important;
+}
+
+/* زر التسجيل */
+button {
+  width: 100%;
+  border-radius: 10px;
+  padding: 10px;
+  font-weight: bold;
+}
