@@ -1,0 +1,156 @@
+.profile-page {
+  min-height: 90vh;
+  padding: 0 5vw 60px;
+  background: var(--sand);
+}
+
+/* ===== Hero ===== */
+.profile-hero {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto 30px;
+  padding: 70px 30px 36px;
+  text-align: center;
+  border-radius: 28px;
+  overflow: hidden;
+  color: var(--sand);
+  background: linear-gradient(160deg, var(--forest), var(--moss));
+  box-shadow: var(--shadow-lg);
+}
+
+/* جبال مرسومة بـ CSS */
+.profile-mountains {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 90px;
+  opacity: .18;
+  background:
+    linear-gradient(135deg, transparent 50%, #fff 50%) 0 100% / 120px 80px repeat-x,
+    linear-gradient(225deg, transparent 50%, #fff 50%) 60px 100% / 120px 60px repeat-x;
+  animation: drift 18s linear infinite;
+}
+
+.profile-avatar-wrap {
+  position: relative;
+  width: 130px; height: 130px;
+  margin: 0 auto 16px;
+  z-index: 2;
+}
+.profile-avatar-wrap::before {
+  content: "";
+  position: absolute; inset: -8px;
+  border-radius: 50%;
+  border: 3px solid var(--sunset);
+  animation: ring 2.4s ease-out infinite;
+}
+.profile-avatar {
+  width: 100%; height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--sand);
+  animation: float 4s ease-in-out infinite;
+}
+
+.profile-name { position: relative; z-index: 2; font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0; }
+.profile-email { position: relative; z-index: 2; opacity: .8; margin: 6px 0 16px; }
+.profile-role {
+  position: relative; z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 20px;
+  background: var(--sunset);
+  color: #fff;
+  border-radius: 50px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* ===== Stats ===== */
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 22px;
+  max-width: 900px;
+  margin: 0 auto 30px;
+}
+.pstat {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border-bottom: 5px solid var(--sunset);
+  transition: transform .3s, box-shadow .3s;
+}
+.pstat:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.pstat-icon { font-size: 2rem; color: var(--sunset); }
+.pstat h2 { font-size: 2.6rem; color: var(--forest); margin: 8px 0 0; }
+.pstat p { color: var(--moss); margin: 0; font-weight: 600; }
+
+/* ===== Levels ===== */
+.profile-card {
+  max-width: 900px;
+  margin: 0 auto 30px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+}
+.profile-card h3 { color: var(--forest); margin-bottom: 22px; }
+.level-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.level-label { width: 80px; font-weight: 700; font-size: .8rem; letter-spacing: 1px; color: var(--forest); }
+.level-track { flex: 1; height: 12px; background: var(--sand-2); border-radius: 20px; overflow: hidden; }
+.level-fill { height: 100%; border-radius: 20px; animation: grow 1.4s ease-out both; }
+.level-fill.easy { background: var(--easy); }
+.level-fill.medium { background: var(--medium); }
+.level-fill.hard { background: var(--hard); }
+.level-count { width: 28px; text-align: right; font-weight: 700; color: var(--forest); }
+
+/* ===== Actions ===== */
+.profile-actions {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
+  max-width: 900px; margin: 0 auto;
+}
+.profile-actions button {
+  padding: 13px 30px;
+  border: none;
+  border-radius: 50px;
+  background: var(--sunset);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: .8rem;
+  transition: all .3s;
+}
+.profile-actions button:hover { background: var(--sunset-dark); transform: translateY(-3px); }
+.profile-actions .profile-logout {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent;
+  color: var(--hard);
+  border: 2px solid var(--hard);
+}
+.profile-actions .profile-logout:hover { background: var(--hard); color: #fff; }
+
+.profile-badges {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.profile-badges .profile-role { position: static; }
+
+.profile-gender {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: rgba(244, 239, 228, 0.15);
+  border: 1px solid rgba(244, 239, 228, 0.4);
+  color: var(--sand);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}

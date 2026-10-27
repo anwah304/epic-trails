@@ -1,0 +1,54 @@
+/* Navbar.css */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 5vw;
+  background: rgba(31, 45, 36, 0.96);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0,0,0,.25);
+}
+.logo-img { height: 54px; width: auto; }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  position: relative;
+  color: var(--sand);
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  padding: 6px 0;
+  transition: color .3s;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 0; height: 2px;
+  background: var(--sunset);
+  transition: width .3s;
+}
+.nav-links a:hover { color: var(--sunset); }
+.nav-links a:hover::after { width: 100%; }
+.logout-btn {
+  background: transparent;
+  border: none;
+  color: var(--sand);
+  display: flex;
+  transition: color .3s, transform .3s;
+}
+.logout-btn:hover { color: var(--sunset); transform: translateX(3px); }
+
+@media (max-width: 900px) {
+  .navbar { flex-direction: column; gap: 10px; }
+  .nav-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+}

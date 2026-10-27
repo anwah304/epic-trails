@@ -8,9 +8,9 @@ import img3 from '../assets/img3.png';
 
 import { Link } from "react-router-dom";
 
-function Home() {
+const MainPage=() =>{
   return (
-    <Container fluid className="hero-section">
+    <div fluid className="hero-section">
 
       <div className="top-title">EPIC TRAILS</div>
 
@@ -47,8 +47,8 @@ function Home() {
         </Col>
 
       </Row>
-    </Container>
+    </div>
   );
 }
 
-export default Home;
+export default MainPage;

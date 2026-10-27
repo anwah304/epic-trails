@@ -1,0 +1,13 @@
+/* Footer.css */
+.footer {
+  background: var(--forest);
+  color: var(--sand);
+  padding: 50px 0 20px;
+  margin-top: 60px;
+  border-top: 4px solid var(--sunset);
+}
+.footer h5 { color: var(--sunset); margin-bottom: 14px; }
+.footer p { margin: 4px 0; color: rgba(244,239,228,.8); font-size: .9rem; }
+.social-section { text-align: right; }
+.footer hr { border-color: rgba(244,239,228,.2); margin: 28px 0 14px; }
+.copyright { text-align: center; font-size: .8rem; opacity: .7; }

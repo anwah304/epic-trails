@@ -1,0 +1,79 @@
+.add-trail-page{
+    min-height: 100vh;
+    background: #f4f6f8;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-trail-box{
+    width: 500px;
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 20px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.add-trail-box h1{
+    text-align: center;
+    margin-bottom: 30px;
+
+    color: #0b5d51;
+}
+
+.add-trail-box form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.add-trail-box input,
+.add-trail-box select,
+.add-trail-box textarea{
+    padding: 14px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+}
+
+.add-trail-box textarea{
+    height: 120px;
+    resize: none;
+}
+
+.add-trail-box button{
+    background: #0b5d51;
+    color: white;
+
+    border: none;
+
+    padding: 15px;
+
+    border-radius: 10px;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.add-trail-box button:hover{
+    background: #08463d;
+}
+
+.guide-preview-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 8px auto;
+  display: block;
+}

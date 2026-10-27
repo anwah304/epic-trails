@@ -1,0 +1,37 @@
+/* Search.css */
+.search-page { padding: 50px 5vw; background: var(--sand); min-height: 80vh; }
+.search-box { display: flex; justify-content: center; margin-bottom: 45px; }
+.input-wrapper {
+  position: relative;
+  width: min(480px, 100%);
+}
+.search-icon {
+  position: absolute;
+  left: 18px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--sunset);
+  pointer-events: none;
+}
+.input-wrapper select {
+  width: 100%;
+  padding: 16px 20px 16px 52px;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  background: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--forest);
+  box-shadow: var(--shadow);
+  outline: none;
+  transition: border-color .3s;
+}
+.input-wrapper select:focus { border-color: var(--sunset); }
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+  max-width: 1250px;
+  margin: 0 auto;
+}

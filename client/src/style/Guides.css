@@ -1,0 +1,37 @@
+/* Guides.css */
+.guides-page { padding: 50px 5vw; background: var(--sand); min-height: 80vh; }
+.guides-header { text-align: center; max-width: 700px; margin: 0 auto 45px; }
+.guides-header h1 { color: var(--forest); font-size: clamp(2rem, 4vw, 2.8rem); }
+.guides-header h1::after {
+  content: ""; display: block; width: 70px; height: 4px;
+  background: var(--sunset); border-radius: 4px; margin: 14px auto 0;
+}
+.guides-header p { color: var(--moss); line-height: 1.8; }
+.guides-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.guide-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border-top: 5px solid var(--sunset);
+  transition: transform .35s, box-shadow .35s;
+}
+.guide-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.guide-img {
+  width: 110px; height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid var(--sand-2);
+  margin-bottom: 14px;
+}
+.guide-card h3 { color: var(--forest); font-size: 1.1rem; }
+.guide-card > p { color: var(--sunset); font-weight: 600; font-size: .9rem; }
+.guide-card .contact-info { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--sand-2); }
+.guide-card .contact-info p { color: var(--moss); margin: 3px 0; }

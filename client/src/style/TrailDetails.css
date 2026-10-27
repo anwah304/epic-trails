@@ -1,0 +1,71 @@
+/* TrailDetails.css */
+.td-page { padding: 50px 5vw; background: var(--sand); min-height: 80vh; }
+.td-loading { text-align: center; padding: 120px 0; color: var(--moss); font-size: 1.2rem; }
+.td-title {
+  text-align: center;
+  color: var(--forest);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  margin-bottom: 35px;
+}
+.td-hero-body {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.td-map-wrapper {
+  height: 460px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: var(--sand-2);
+}
+.td-no-map {
+  height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--moss);
+}
+.td-description {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: var(--shadow);
+  border-left: 6px solid var(--sunset);
+}
+.td-desc-title {
+  color: var(--sunset);
+  font-weight: 700;
+  letter-spacing: 3px;
+  font-size: .85rem;
+}
+.td-desc-text { line-height: 1.9; color: #444; }
+.td-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.td-badge {
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.td-level-easy { background: var(--easy); }
+.td-level-medium { background: var(--medium); }
+.td-level-hard { background: var(--hard); }
+.td-gov { background: var(--forest); }
+.td-back-wrapper { max-width: 1200px; margin: 30px auto 0; }
+.td-back-btn {
+  background: transparent;
+  border: 2px solid var(--forest);
+  color: var(--forest);
+  padding: 10px 26px;
+  border-radius: 50px;
+  font-weight: 700;
+  transition: all .3s;
+}
+.td-back-btn:hover { background: var(--forest); color: var(--sand); }
+
+@media (max-width: 850px) {
+  .td-hero-body { grid-template-columns: 1fr; }
+  .td-map-wrapper { height: 320px; }
+}

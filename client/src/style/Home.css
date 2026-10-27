@@ -1,0 +1,43 @@
+.destination-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 26px;
+  max-width: 1250px;
+  margin: 0 auto;
+}
+.destination-header { text-align: center; margin-bottom: 45px; }
+.destination-header h1 { font-size: clamp(2rem, 4vw, 3rem); color: var(--forest); }
+.destination-header p { color: var(--moss); }
+
+.destination-card {
+  position: relative;
+  height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.destination-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.destination-card .card-img { position: absolute; inset: 0; }
+.destination-card .card-img img { transition: transform .6s ease; }
+.destination-card:hover .card-img img { transform: scale(1.1); }
+.destination-card::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(31,45,36,.92) 5%, rgba(31,45,36,.1) 60%);
+}
+.destination-card h3, .destination-card p {
+  position: absolute;
+  z-index: 2;
+  left: 20px; right: 20px;
+  color: #fff;
+  margin: 0;
+}
+.destination-card h3 { bottom: 48px; font-size: 1.15rem; }
+.destination-card p {
+  bottom: 20px;
+  color: var(--sunset);
+  font-weight: 700;
+  font-size: .85rem;
+  letter-spacing: 1px;
+}
