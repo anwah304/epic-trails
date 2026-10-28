@@ -1,51 +1,56 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom"; // ✅ أضفنا NavLink و useNavigate
 import { IoIosLogOut } from "react-icons/io";
 import logo from "../assets/logo-t.png";
 import "../style/AdminNavbar.css";
 
 const AdminNavbar = () => {
+  const navigate = useNavigate(); // ✅ جديد
+
+  // ✅ جديد: تسجيل الخروج يمسح الجلسة (قبل كان يرجع للرئيسية بس)
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    navigate("/");
+  };
+
+  // ✅ جديد: يعلّم الرابط النشط
+  const linkClass = ({ isActive }) => (isActive ? "active" : "");
+
   return (
     <nav className="admin-navbar">
 
-  
       <div className="admin-logo">
-        <Link to="/admin">
-          <img
-            src={logo}
-            alt="Admin Logo"
-            className="admin-logo-img"
-          />
+        <Link to="/admin" className="admin-brand">
+          <img src={logo} alt="Admin Logo" className="admin-logo-img" />
+          <span className="admin-brand-text">EPIC TRAILS</span>
+          <span className="admin-badge">ADMIN</span>
         </Link>
       </div>
 
-   
       <ul className="admin-nav-links">
-
         <li>
-          <Link to="/admin">
+          <NavLink to="/admin" end className={linkClass}>
             DASHBOARD
-          </Link>
+          </NavLink>
         </li>
 
         <li>
-          <Link to="/admin/trails">
+          <NavLink to="/admin/trails" className={linkClass}>
             MANAGE TRAILS
-          </Link>
+          </NavLink>
         </li>
 
         <li>
-          <Link to="/admin/guides">
+          <NavLink to="/admin/guides" className={linkClass}>
             MANAGE GUIDES
-          </Link>
+          </NavLink>
         </li>
 
         <li>
-  <Link to="/" className="logout-link">
-    <IoIosLogOut size={32}/>
-  </Link>
-</li>
-
+          <button className="admin-logout" onClick={handleLogout} title="Logout">
+            <IoIosLogOut size={28} />
+          </button>
+        </li>
       </ul>
 
     </nav>

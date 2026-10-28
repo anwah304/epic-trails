@@ -82,3 +82,87 @@
 }
 .edit-btn { background: var(--moss); }
 .delete-btn { background: var(--hard); }
+/* ===== Admin: إحصائيات ===== */
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  max-width: 700px;
+  margin: 0 auto 35px;
+}
+.stats-card {
+  padding: 26px 20px;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  border-bottom: 5px solid var(--sunset);
+  box-shadow: var(--shadow);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.stats-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.stats-icon { font-size: 2rem; color: var(--sunset); }
+.stats-card h2 { margin: 8px 0 0; font-size: 2.6rem; color: var(--forest); }
+.stats-card p { margin: 0; font-weight: 600; color: var(--moss); }
+
+.dashboard-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 45px;
+}
+.dashboard-header .add-btn { margin-top: 18px; }
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 10px 0 24px;
+  font-size: 1.6rem;
+  color: var(--forest);
+}
+.section-title::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: var(--sand-2);
+}
+
+/* ===== بادج المستوى ===== */
+.level-pill {
+  display: inline-block;
+  padding: 4px 16px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #fff;
+  border-radius: 50px;
+}
+.level-pill.easy   { background: var(--easy); }
+.level-pill.medium { background: var(--medium); }
+.level-pill.hard   { background: var(--hard); }
+
+.guide-specialty { color: var(--sunset) !important; font-weight: 600; }
+
+/* ===== إصلاح أزرار التعديل والحذف =====
+   (قاعدة .card-content button كانت تغلب عليهم) */
+.admin-actions .edit-btn,
+.admin-actions .delete-btn {
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  letter-spacing: 0;
+  color: #fff;
+  transition: transform 0.25s, background 0.25s;
+}
+.admin-actions .edit-btn   { background: var(--moss); }
+.admin-actions .delete-btn { background: var(--hard); }
+.admin-actions .edit-btn:hover   { background: var(--forest); transform: translateY(-3px) scale(1.08); }
+.admin-actions .delete-btn:hover { background: #8f2b1e; transform: translateY(-3px) scale(1.08); }

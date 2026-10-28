@@ -1,38 +1,82 @@
 .admin-navbar {
-  width: 100%;
-  height: 80px;
-  background-color: #1b4332;
+  position: sticky;
+  top: 0;
+  z-index: 50;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 60px;
+  justify-content: space-between;
+  padding: 10px 5vw;
+  background: rgba(31, 45, 36, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 3px solid var(--gold);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-.admin-logo {
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
+.admin-brand { display: flex; align-items: center; gap: 12px; }
+.admin-logo-img { height: 50px; width: 50px; object-fit: contain; }
+.admin-brand-text {
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 3px;
+  color: var(--sand);
+}
+.admin-badge {
+  padding: 3px 11px;
+  background: var(--gold);
+  color: var(--forest);
+  border-radius: 50px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 2px;
 }
 
 .admin-nav-links {
   display: flex;
+  align-items: center;
+  gap: 28px;
   list-style: none;
-  gap: 30px;
+  margin: 0;
+  padding: 0;
 }
+.admin-nav-links a {
+  position: relative;
+  padding: 6px 0;
+  color: var(--sand);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  transition: color 0.3s;
+}
+.admin-nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--gold);
+  transition: width 0.3s;
+}
+.admin-nav-links a:hover,
+.admin-nav-links a.active { color: var(--gold); }
+.admin-nav-links a:hover::after,
+.admin-nav-links a.active::after { width: 100%; }
 
-.admin-nav-links li a {
-  color: white;
-  text-decoration: none;
-  font-size: 17px;
-  transition: 0.3s;
+.admin-logout {
+  display: flex;
+  padding: 0;
+  background: transparent;
+  border: none;
+  color: var(--sand);
+  transition: color 0.3s, transform 0.3s;
 }
+.admin-logout:hover { color: var(--gold); transform: translateX(3px); }
 
-.admin-nav-links li a:hover {
-  color: #95d5b2;
+@media (max-width: 900px) {
+  .admin-navbar { flex-direction: column; gap: 10px; }
+  .admin-nav-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
 }
-.admin-logo-img {
-    width: 70px;
-    height: auto;
-    object-fit: contain;
-    cursor: pointer;
+@media (max-width: 520px) {
+  .admin-brand-text { display: none; }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import "../style/Destination.css";
 import AdminNavbar from "./AdminNavbar";
+import Reveal from "./Reveal"; // ✅ جديد
 import { useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
@@ -16,8 +17,9 @@ const ManageTrails = () => {
     dispatch(getTrails());
   }, [dispatch]);
 
+  // ✅ جديد: تأكيد قبل الحذف
   const handleDelete = (id) => {
-    dispatch(deleteTrail(id));
+    if (window.confirm("Delete this trail?")) dispatch(deleteTrail(id));
   };
 
   return (
@@ -30,45 +32,49 @@ const ManageTrails = () => {
           <div className="dashboard-header">
             <h1>MANAGE TRAILS</h1>
             <p>Manage hiking trails in Oman</p>
-            <button
-              className="add-btn"
-              onClick={() => navigate("/add-trail")}
-            >
+            <button className="add-btn" onClick={() => navigate("/add-trail")}>
               + Add New Trail
             </button>
           </div>
 
           <div className="dashboard-cards">
-            {trails.map((trail) => (
-              <div className="dashboard-card" key={trail._id}>
-                <img src={trail.image} alt={trail.name} />
-                <div className="card-content">
+            {trails.length === 0 ? (
+              <p className="empty-text">No trails yet</p>
+            ) : (
+              trails.map((trail, i) => (
+                <Reveal key={trail._id} delay={i * 80}> {/* ✅ جديد */}
+                  <div className="dashboard-card">
+                    <img src={trail.image} alt={trail.name} />
+                    <div className="card-content">
 
-                  <h3>
-                    {trail.name.toUpperCase()} <br />
-                    LEVEL : {trail.level}
-                  </h3>
+                      <h3>{trail.name.toUpperCase()}</h3>
+                      <span className={`level-pill ${(trail.level || "").toLowerCase()}`}>
+                        {trail.level}
+                      </span>
+                      <p>{trail.governorate}</p>
 
-                  <div className="admin-actions">
+                      <div className="admin-actions">
+                        <button
+                          className="edit-btn"
+                          title="Edit"
+                          onClick={() => navigate(`/edit-trail/${trail._id}`)}
+                        >
+                          <FaRegEdit />
+                        </button>
 
-                    <button
-                      className="edit-btn"
-                      onClick={() => navigate(`/edit-trail/${trail._id}`)}
-                    >
-                      <FaRegEdit />
-                    </button>
-
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDelete(trail._id)}
-                    >
-                      <MdDeleteForever />
-                    </button>
-
+                        <button
+                          className="delete-btn"
+                          title="Delete"
+                          onClick={() => handleDelete(trail._id)}
+                        >
+                          <MdDeleteForever />
+                        </button>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                </Reveal>
+              ))
+            )}
           </div>
 
         </div>
