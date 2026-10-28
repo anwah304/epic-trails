@@ -9,6 +9,12 @@ import img3 from '../assets/img3.png';
 import { Link } from "react-router-dom";
 
 const MainPage=() =>{
+
+  // ✅ جديد: الزائر يبدأ بدون جلسة قديمة
+  const handleGuest = () => {
+    localStorage.removeItem("user");
+  };
+
   return (
     <div fluid className="hero-section">
 
@@ -40,9 +46,16 @@ const MainPage=() =>{
             Step into a world of breathtaking landscapes, where every trail tells a story.
           </p>
 
-          <Link to="/login" className="start-btn">
-            START YOUR JOURNEY
-          </Link>
+          {/* ✅ جديد: الزرين جنب بعض */}
+          <div className="hero-actions">
+            <Link to="/login" className="start-btn">
+              START YOUR JOURNEY
+            </Link>
+
+            <Link to="/home" className="guest-btn" onClick={handleGuest}>
+              BROWSE AS GUEST
+            </Link>
+          </div>
 
         </Col>
 

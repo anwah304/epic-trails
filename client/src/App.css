@@ -120,3 +120,29 @@
 .hero-section h4, .hero-section p { animation: fadeUp .9s .5s ease both; }
 .start-btn      { animation: pulse 2.2s infinite; }
 .start-btn:hover { animation: none; }
+
+/* ===== أزرار الصفحة الرئيسية ===== */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+.hero-actions .start-btn { margin-top: 0; }
+
+.guest-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  color: var(--sand);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  border: 2px solid var(--sand);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+.guest-btn:hover {
+  color: var(--forest);
+  background: var(--sand);
+  transform: translateY(-3px);
+}

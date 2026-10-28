@@ -230,3 +230,34 @@ button { font-family: inherit; cursor: pointer; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
+/* ===== زر الزائر ===== */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0 12px;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--moss);
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--sand-2);
+}
+
+.auth-guest {
+  width: 100%;
+  padding: 11px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--forest);
+  background: transparent;
+  border: 2px solid var(--forest);
+  border-radius: 50px;
+  transition: all 0.3s;
+}
+.auth-guest:hover { color: var(--sand); background: var(--forest); }

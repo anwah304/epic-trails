@@ -2,11 +2,20 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo-t.png";
 import { IoIosLogOut } from "react-icons/io";
-import { FaUserAlt } from "react-icons/fa";
 import "../style/Navbar.css";
+
+
+const isLoggedIn = () => {
+  try {
+    return !!JSON.parse(localStorage.getItem("user"));
+  } catch {
+    return false;
+  }
+};
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const loggedIn = isLoggedIn();
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -26,14 +35,29 @@ const Navbar = () => {
         <li><Link to="/weather">WEATHER</Link></li>
         <li><Link to="/destinations">DESTINATIONS</Link></li>
         <li><Link to="/about">ABOUT</Link></li>
-        <li>
-          <Link to="/profile">PROFILE</Link>
-        </li>
-        <li>
-          <button className="logout-btn" onClick={handleLogout}>
-            <IoIosLogOut size={28} />
-          </button>
-        </li>
+
+        {loggedIn ? (
+          <>
+            <li>
+              <Link to="/profile">PROFILE</Link>
+            </li>
+            <li>
+              <button className="logout-btn" onClick={handleLogout}>
+                <IoIosLogOut size={28} />
+              </button>
+            </li>
+          </>
+        ) : (
+          
+          <>
+            <li>
+              <span className="guest-badge">GUEST</span>
+            </li>
+            <li>
+              <Link to="/login" className="nav-login-btn">LOGIN</Link>
+            </li>
+          </>
+        )}
       </ul>
     </nav>
   );

@@ -13,7 +13,7 @@ const Footer = () => {
             <h5>Contact Us</h5>
 
             <p>Email: epictrails@gmail.com</p>
-            <p>Phone: +968 9999 9999</p>
+            <p>Phone: +968 90987762</p>
           </Col>
 
           <Col md="6" className="social-section">
@@ -30,7 +30,7 @@ const Footer = () => {
         <Row>
           <Col>
             <p className="copyright">
-              © 2026 Epic Trails | Designed by Anwah, Lubna & Fatma
+              © 2026 Epic Trails | Designed by Anwah Ibrahim AL-Sinani
             </p>
           </Col>
         </Row>

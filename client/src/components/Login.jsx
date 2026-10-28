@@ -26,6 +26,12 @@ const Login = () => {
        dispatch(login(udata));
     }
 
+    // ✅ جديد: الدخول كزائر
+    const handleGuest = () => {
+        localStorage.removeItem("user");
+        navigate("/home");
+    };
+
     useEffect(() => {
         dispatch(resetState());
     }, []);
@@ -46,7 +52,6 @@ const Login = () => {
     }, [message, isSuccess]);
 
     return (
-        // ✅ الهيكل الجديد (نفس شكل Register)
         <div className="auth-page">
             <div className="auth-card">
 
@@ -98,6 +103,12 @@ const Login = () => {
                         </div>
 
                         <button type="submit" className="auth-btn">SIGN IN</button>
+
+                        {/* ✅ جديد: زر الزائر */}
+                        <div className="auth-divider">OR</div>
+                        <button type="button" className="auth-guest" onClick={handleGuest}>
+                            CONTINUE AS GUEST
+                        </button>
 
                         <p className="auth-switch">
                             No account? <Link to="/register">Sign Up</Link> now

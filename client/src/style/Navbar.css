@@ -52,3 +52,28 @@
   .navbar { flex-direction: column; gap: 10px; }
   .nav-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
 }
+/* ===== وضع الزائر ===== */
+.guest-badge {
+  padding: 3px 12px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 50px;
+}
+
+.nav-links a.nav-login-btn {
+  padding: 8px 22px;
+  color: #fff;
+  background: var(--sunset);
+  border-radius: 50px;
+  letter-spacing: 2px;
+  transition: background 0.3s, transform 0.3s;
+}
+.nav-links a.nav-login-btn::after { display: none; }
+.nav-links a.nav-login-btn:hover {
+  color: #fff;
+  background: var(--sunset-dark);
+  transform: translateY(-2px);
+}

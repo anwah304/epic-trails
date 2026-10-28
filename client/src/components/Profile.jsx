@@ -5,13 +5,13 @@ import Footer from "./Footer";
 import Reveal from "./Reveal";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom"; // ✅ جديد: أضفنا Navigate
 import { getTrails } from "../features/TrailSlice";
 import { getGuides } from "../features/GuideSlice";
 
 import maleProfile from "../assets/male-profile.jpg";
-import femaleProfile from "../assets/female-profile.png"; // ✅ جديد
-import { FaMapMarkedAlt, FaUserTie, FaMountain, FaMale, FaFemale } from "react-icons/fa"; // ✅ أضفنا FaMale و FaFemale
+import femaleProfile from "../assets/female-profile.png";
+import { FaMapMarkedAlt, FaUserTie, FaMountain, FaMale, FaFemale } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 
 // عدّاد يتحرك من 0 إلى الرقم
@@ -54,7 +54,7 @@ const Profile = () => {
   const displayName =
     user.username || user.name || (user.email ? user.email.split("@")[0] : "Explorer");
 
-  // ✅ جديد: اختيار الصورة حسب الجنس
+  // اختيار الصورة حسب الجنس
   const isFemale = (user.gender || "").toLowerCase() === "female";
   const defaultAvatar = isFemale ? femaleProfile : maleProfile;
   const avatar = user.profilepic || defaultAvatar;
@@ -63,6 +63,12 @@ const Profile = () => {
     dispatch(getTrails());
     dispatch(getGuides());
   }, [dispatch]);
+
+  // ✅ جديد: الزائر ما له بروفايل، يتحول لصفحة الدخول
+  // (لازم يكون بعد كل الـ hooks فوق، وإلا React يعطي خطأ)
+  if (!user.email && !user._id) {
+    return <Navigate to="/login" replace />;
+  }
 
   const count = (lvl) => trails.filter((t) => t.level === lvl).length;
 
@@ -82,17 +88,16 @@ const Profile = () => {
 
           <div className="profile-avatar-wrap">
             <img
-              src={avatar} // ✅ تغيّر
+              src={avatar}
               alt={displayName}
               className="profile-avatar"
-              onError={(e) => (e.target.src = defaultAvatar)} // ✅ تغيّر
+              onError={(e) => (e.target.src = defaultAvatar)}
             />
           </div>
 
           <h1 className="profile-name">{displayName}</h1>
           <p className="profile-email">{user.email || "—"}</p>
 
-          {/* ✅ جديد: بادج الدور + بادج الجنس */}
           <div className="profile-badges">
             <span className="profile-role">
               <FaMountain /> {user.role === "admin" ? "ADMIN" : "HIKER"}
