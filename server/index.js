@@ -37,7 +37,16 @@ app.get("/Users", async (req, res) => {
     res.send("Read Error.." + error);
   }
 });
-
+// ================= USERS COUNT =================
+app.get("/usersCount", async (req, res) => {
+  try {
+    // يعد المستخدمين العاديين فقط (بدون الأدمن)
+    const count = await UserModel.countDocuments({ role: { $ne: "admin" } });
+    res.send({ count });
+  } catch (error) {
+    res.status(500).send("Users Count Error.." + error);
+  }
+});
 // ================= REGISTER =================
 app.post("/register", async (req, res) => {
   try {

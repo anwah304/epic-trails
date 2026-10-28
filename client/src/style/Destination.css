@@ -1,3 +1,4 @@
+/* ===== الصفحات ===== */
 .dashboard-page, .destination-page {
   min-height: 80vh;
   padding: 50px 5vw;
@@ -20,13 +21,16 @@
   margin: 14px auto 0;
 }
 .dashboard-header p { color: var(--moss); max-width: 600px; margin: 0 auto; }
+.dashboard-header .add-btn { margin-top: 18px; }
 
+/* ===== الكروت ===== */
 .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 28px;
 }
 .dashboard-card {
+  position: relative;
   background: #fff;
   border-radius: var(--radius);
   overflow: hidden;
@@ -40,10 +44,11 @@
   transition: transform .5s ease;
 }
 .dashboard-card:hover img { transform: scale(1.06); }
-.dashboard-card { position: relative; }
+
 .card-content { padding: 18px 20px 22px; text-align: center; }
 .card-content h3 { font-size: 1.1rem; color: var(--forest); line-height: 1.6; }
 .card-content p { color: var(--moss); margin: 4px 0; font-size: .9rem; }
+
 .card-content button, .add-btn {
   margin-top: 10px;
   padding: 10px 26px;
@@ -60,6 +65,7 @@
   background: var(--sunset-dark);
   transform: translateY(-2px);
 }
+
 .empty-text {
   grid-column: 1 / -1;
   text-align: center;
@@ -69,25 +75,12 @@
 }
 .contact-info p { font-size: .85rem; }
 
-/* Admin actions (نظبطها أكثر في مرحلة الأدمن) */
-.admin-actions { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
-.edit-btn, .delete-btn {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  border: none;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.2rem;
-  color: #fff;
-  padding: 0; margin: 0; letter-spacing: 0;
-}
-.edit-btn { background: var(--moss); }
-.delete-btn { background: var(--hard); }
 /* ===== Admin: إحصائيات ===== */
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 22px;
-  max-width: 700px;
+  max-width: 900px; /* ✅ كان 700px */
   margin: 0 auto 35px;
 }
 .stats-card {
@@ -97,7 +90,7 @@
   border-radius: 20px;
   border-bottom: 5px solid var(--sunset);
   box-shadow: var(--shadow);
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform .3s, box-shadow .3s;
 }
 .stats-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
 .stats-icon { font-size: 2rem; color: var(--sunset); }
@@ -111,7 +104,6 @@
   gap: 14px;
   margin-bottom: 45px;
 }
-.dashboard-header .add-btn { margin-top: 18px; }
 
 .section-title {
   display: flex;
@@ -132,7 +124,7 @@
 .level-pill {
   display: inline-block;
   padding: 4px 16px;
-  font-size: 0.7rem;
+  font-size: .7rem;
   font-weight: 700;
   letter-spacing: 1.5px;
   color: #fff;
@@ -144,8 +136,10 @@
 
 .guide-specialty { color: var(--sunset) !important; font-weight: 600; }
 
-/* ===== إصلاح أزرار التعديل والحذف =====
-   (قاعدة .card-content button كانت تغلب عليهم) */
+/* ===== أزرار التعديل والحذف =====
+   (مكتوبة بـ .admin-actions عشان تغلب قاعدة .card-content button) */
+.admin-actions { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
+
 .admin-actions .edit-btn,
 .admin-actions .delete-btn {
   width: 40px;
@@ -160,7 +154,7 @@
   font-size: 1.2rem;
   letter-spacing: 0;
   color: #fff;
-  transition: transform 0.25s, background 0.25s;
+  transition: transform .25s, background .25s;
 }
 .admin-actions .edit-btn   { background: var(--moss); }
 .admin-actions .delete-btn { background: var(--hard); }

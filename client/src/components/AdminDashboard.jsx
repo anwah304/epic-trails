@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react"; // ✅ أضفنا useState
+import axios from "axios"; // ✅ جديد
 import "../style/Destination.css";
 
 import AdminNavbar from "./AdminNavbar";
-import Reveal from "./Reveal";    // ✅ جديد
-import CountUp from "./CountUp";  // ✅ جديد
+import Reveal from "./Reveal";
+import CountUp from "./CountUp";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -15,21 +16,28 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa";
+import { FaUsers } from "react-icons/fa"; // ✅ جديد
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // GET DATA FROM REDUX
   const trails = useSelector((state) => state.trail.trails) || [];
   const guides = useSelector((state) => state.guide.guides) || [];
+
+  const [usersCount, setUsersCount] = useState(0); // ✅ جديد
 
   useEffect(() => {
     dispatch(getTrails());
     dispatch(getGuides());
+
+    // ✅ جديد: جلب عدد المستخدمين من السيرفر
+    axios
+      .get("http://localhost:3004/usersCount")
+      .then((res) => setUsersCount(res.data.count))
+      .catch((err) => console.log("Users count error.." + err));
   }, [dispatch]);
 
-  // ✅ جديد: تأكيد قبل الحذف
   const handleDeleteTrail = (id) => {
     if (window.confirm("Delete this trail?")) dispatch(deleteTrail(id));
   };
@@ -68,6 +76,15 @@ const AdminDashboard = () => {
               </div>
             </Reveal>
 
+            {/* ✅ جديد: كرت المستخدمين */}
+            <Reveal delay={240}>
+              <div className="stats-card">
+                <FaUsers className="stats-icon" />
+                <h2><CountUp value={usersCount} /></h2>
+                <p>Total Users</p>
+              </div>
+            </Reveal>
+
           </div>
 
           <div className="dashboard-buttons">
@@ -83,12 +100,11 @@ const AdminDashboard = () => {
 
           <div className="dashboard-cards">
             {trails.map((trail, i) => (
-              <Reveal key={trail._id} delay={i * 80}> {/* ✅ جديد */}
+              <Reveal key={trail._id} delay={i * 80}>
                 <div className="dashboard-card">
                   <img src={trail.image} alt={trail.name} />
                   <div className="card-content">
                     <h3>{trail.name}</h3>
-                    {/* ✅ جديد: بادج ملوّن للمستوى */}
                     <span className={`level-pill ${(trail.level || "").toLowerCase()}`}>
                       {trail.level}
                     </span>
@@ -120,7 +136,7 @@ const AdminDashboard = () => {
 
           <div className="dashboard-cards">
             {guides.map((guide, i) => (
-              <Reveal key={guide._id} delay={i * 80}> {/* ✅ جديد */}
+              <Reveal key={guide._id} delay={i * 80}>
                 <div className="dashboard-card">
                   <img src={guide.image} alt={guide.name} />
                   <div className="card-content">
