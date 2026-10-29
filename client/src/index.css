@@ -261,3 +261,15 @@ button { font-family: inherit; cursor: pointer; }
   transition: all 0.3s;
 }
 .auth-guest:hover { color: var(--sand); background: var(--forest); }
+.auth-message.success {
+  color: var(--forest);
+  background: rgba(79, 138, 91, 0.18);
+}
+.auth-btn:disabled { opacity: 0.6; cursor: wait; transform: none; }
+.auth-btn-go {
+  margin-top: 12px;
+  background: var(--forest);
+  box-shadow: 0 8px 20px rgba(31, 45, 36, 0.3);
+  animation: fadeUp 0.4s ease both;
+}
+.auth-btn-go:hover { background: var(--forest-2); }

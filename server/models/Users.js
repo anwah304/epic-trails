@@ -22,10 +22,17 @@ const UserSchema = mongoose.Schema({
         type: String
     },
 
-    // ✅ جديد
     gender: {
         type: String,
         enum: ["Male", "Female"]
+    },
+
+    resetPasswordToken: {
+        type: String
+    },
+
+    resetPasswordExpires: {
+        type: Date
     },
 
     role: {

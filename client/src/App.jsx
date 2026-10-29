@@ -18,11 +18,13 @@ import EditTrail from "./components/EditTrail";
 import GovernoratePage from "./components/GovernoratePage";
 import Weather from "./components/Weather";
 import Profile from "./components/Profile";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
+
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Container } from "reactstrap";
 import TrailDetails from "./components/TrailDetails";
-// ✅ ProtectedRoute يقرأ localStorage كل مرة يفتح فيها الصفحة
 const ProtectedRoute = ({ element }) => {
   const user = JSON.parse(localStorage.getItem("user"));
   return user?.role === "admin" ? element : <Navigate to="/home" />;
@@ -50,8 +52,8 @@ function App() {
           <Route path="/trail/:id" element={<TrailDetails />} />
           <Route path="/guides" element={<Guides />} />
           <Route path="/search" element={<Search />} />
-
-          {/* ✅ استخدمنا ProtectedRoute بدل القراءة المباشرة */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route
             path="/admin"
             element={<ProtectedRoute element={<AdminDashboard />} />}

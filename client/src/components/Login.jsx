@@ -99,7 +99,7 @@ const Login = () => {
                             <label className="auth-check">
                                 <input type="checkbox" /> Remember me
                             </label>
-                            <a href="#">Forgot password?</a>
+                            <Link to="/forgot-password">Forgot password?</Link>
                         </div>
 
                         <button type="submit" className="auth-btn">SIGN IN</button>

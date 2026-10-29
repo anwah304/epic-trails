@@ -6,7 +6,8 @@ import UserModel from "./models/Users.js";
 import bcrypt from "bcrypt";
 import TrailModel from "./models/Trails.js";
 import GuideModel from "./models/Guides.js";
-
+import nodemailer from "nodemailer";
+import crypto from "node:crypto";
 const app = express();
 
 app.use(cors());
@@ -31,12 +32,16 @@ mongoose
 // ================= USERS =================
 app.get("/Users", async (req, res) => {
   try {
-    const users = await UserModel.find({});
+    // ✅ تغيّر: ما نرجّع الباسوردات ولا حقول إعادة التعيين
+    const users = await UserModel.find({}).select(
+      "-password -resetPasswordToken -resetPasswordExpires"
+    );
     res.send(users);
   } catch (error) {
     res.send("Read Error.." + error);
   }
 });
+
 // ================= USERS COUNT =================
 app.get("/usersCount", async (req, res) => {
   try {
@@ -47,10 +52,11 @@ app.get("/usersCount", async (req, res) => {
     res.status(500).send("Users Count Error.." + error);
   }
 });
+
 // ================= REGISTER =================
 app.post("/register", async (req, res) => {
   try {
-    const { email, username, password, profilepic, gender } = req.body; 
+    const { email, username, password, profilepic, gender } = req.body;
     const user = await UserModel.findOne({ email });
 
     if (user) {
@@ -64,17 +70,18 @@ app.post("/register", async (req, res) => {
       username,
       password: hpwd,
       profilepic,
-      gender, 
+      gender,
       role: "user",
     });
 
     await newuser.save();
-    console.log(newuser);
+    // ✅ تغيّر: شلنا console.log(newuser) لأنه يطبع الباسورد المشفر
     res.send({ message: "User Registered..." });
   } catch (error) {
     res.send("Read Error.." + error);
   }
 });
+
 // ================= LOGIN =================
 app.post("/login", async (req, res) => {
   try {
@@ -92,7 +99,7 @@ app.post("/login", async (req, res) => {
             email: user.email,
             username: user.username,
             profilepic: user.profilepic,
-            gender: user.gender, 
+            gender: user.gender,
             role: user.role,
           },
         });
@@ -106,10 +113,11 @@ app.post("/login", async (req, res) => {
     res.send("Read Error.." + error);
   }
 });
+
 // ================= ADD TRAIL =================
 app.post("/addTrail", async (req, res) => {
   try {
-    const { name, level, governorate, image, description, location, lat, lng } = req.body; 
+    const { name, level, governorate, image, description, location, lat, lng } = req.body;
 
     const newTrail = new TrailModel({
       name,
@@ -118,8 +126,8 @@ app.post("/addTrail", async (req, res) => {
       image,
       description,
       location,
-      lat, 
-      lng, 
+      lat,
+      lng,
     });
 
     await newTrail.save();
@@ -158,7 +166,7 @@ app.put("/editTrail/:id", async (req, res) => {
 
     const updatedTrail = await TrailModel.findByIdAndUpdate(
       id,
-      { name, level, governorate, image, description, location, lat, lng }, 
+      { name, level, governorate, image, description, location, lat, lng },
       { new: true }
     );
     res.send({ message: "Trail Updated Successfully", trail: updatedTrail });
@@ -219,5 +227,161 @@ app.delete("/deleteGuide/:id", async (req, res) => {
     res.send({ message: "Guide Deleted Successfully" });
   } catch (error) {
     res.status(500).send("Delete Guide Error.." + error);
+  }
+});
+
+// ================= FORGOT / RESET PASSWORD =================
+const hashToken = (token) =>
+  crypto.createHash("sha256").update(token).digest("hex");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+});
+
+// ✅ جديد: وضع تجريبي، يظهر زر Reset مباشرة (لا تشغلينه في الموقع المنشور)
+const DEMO_RESET = process.env.DEMO_RESET === "true";
+
+// 1) طلب إعادة تعيين الباسورد
+app.post("/forgot-password", async (req, res) => {
+  const generic = {
+    message: "If this email is registered, a reset link has been sent.",
+  };
+
+  try {
+    const email = String(req.body.email || "").trim();
+    const user = await UserModel.findOne({ email });
+
+    // ✅ تغيّر: في الوضع التجريبي نخبر الواجهة إن الإيميل غير مسجل
+    if (!user) {
+      return res.send(
+        DEMO_RESET
+          ? { exists: false, message: "This email is not registered." }
+          : generic
+      );
+    }
+
+    const token = crypto.randomBytes(32).toString("hex");
+
+    await UserModel.updateOne(
+      { _id: user._id },
+      {
+        $set: {
+          resetPasswordToken: hashToken(token),
+          resetPasswordExpires: new Date(Date.now() + 30 * 60 * 1000), // 30 دقيقة
+        },
+      }
+    );
+
+    const link = `${process.env.CLIENT_URL}/reset-password/${token}`;
+
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      try {
+        await transporter.sendMail({
+          from: `"Epic Trails" <${process.env.EMAIL_USER}>`,
+          to: user.email,
+          subject: "Reset your Epic Trails password",
+          html: `
+            <p>Hello ${user.username},</p>
+            <p>We received a request to reset your password. This link is valid for 30 minutes:</p>
+            <p><a href="${link}">Reset my password</a></p>
+            <p>If you did not request this, you can ignore this email.</p>
+          `,
+        });
+      } catch (mailError) {
+        console.log("Email Error.. " + mailError);
+      }
+    } else {
+      console.log("RESET LINK (dev mode):", link);
+    }
+
+    // ✅ جديد: نرجع الكود للواجهة عشان تعرض الزر
+    if (DEMO_RESET) {
+      return res.send({
+        exists: true,
+        token,
+        message: "Email verified. You can reset your password now.",
+      });
+    }
+
+    res.send(generic);
+  } catch (error) {
+    console.log("Forgot Password Error.. " + error);
+    res.send(generic);
+  }
+});
+
+// 2) تعيين الباسورد الجديد
+app.post("/reset-password/:token", async (req, res) => {
+  try {
+    const { password } = req.body;
+
+    if (!password || password.length < 6) {
+      return res
+        .status(400)
+        .send({ message: "Password must be at least 6 characters" });
+    }
+
+    const user = await UserModel.findOne({
+      resetPasswordToken: hashToken(req.params.token),
+      resetPasswordExpires: { $gt: new Date() },
+    });
+
+    if (!user) {
+      return res
+        .status(400)
+        .send({ message: "This reset link is invalid or has expired." });
+    }
+
+    const hpwd = await bcrypt.hash(password, 10);
+
+    await UserModel.updateOne(
+      { _id: user._id },
+      {
+        $set: { password: hpwd },
+        $unset: { resetPasswordToken: "", resetPasswordExpires: "" },
+      }
+    );
+
+    res.send({ message: "Password updated successfully" });
+  } catch (error) {
+    console.log("Reset Password Error.. " + error);
+    res.status(500).send({ message: "Could not reset password" });
+  }
+});
+
+const weatherCache = new Map();
+const WEATHER_TTL = 10 * 60 * 1000; // 10 دقايق
+
+app.get("/weather", async (req, res) => {
+  try {
+    const q = String(req.query.q || "").trim();
+    if (!q || q.length > 80) {
+      return res.status(400).send({ message: "Invalid location" });
+    }
+
+    const hit = weatherCache.get(q);
+    if (hit && Date.now() - hit.time < WEATHER_TTL) {
+      return res.send(hit.data);
+    }
+
+    const url =
+      `https://api.weatherapi.com/v1/current.json` +
+      `?key=${process.env.WEATHER_API_KEY}&q=${encodeURIComponent(q)}&aqi=no`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res
+        .status(response.status)
+        .send({ message: data.error?.message || "Weather error" });
+    }
+
+    weatherCache.set(q, { time: Date.now(), data });
+    res.send(data);
+  } catch (error) {
+    console.log("Weather Error.. " + error);
+    res.status(500).send({ message: "Weather service unavailable" });
   }
 });
