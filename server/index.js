@@ -50,7 +50,7 @@ app.get("/usersCount", async (req, res) => {
 // ================= REGISTER =================
 app.post("/register", async (req, res) => {
   try {
-    const { email, username, password, profilepic, gender } = req.body; // ✅ أضفنا gender
+    const { email, username, password, profilepic, gender } = req.body; 
     const user = await UserModel.findOne({ email });
 
     if (user) {
@@ -64,7 +64,7 @@ app.post("/register", async (req, res) => {
       username,
       password: hpwd,
       profilepic,
-      gender, // ✅ جديد
+      gender, 
       role: "user",
     });
 
@@ -92,7 +92,7 @@ app.post("/login", async (req, res) => {
             email: user.email,
             username: user.username,
             profilepic: user.profilepic,
-            gender: user.gender, // ✅ جديد
+            gender: user.gender, 
             role: user.role,
           },
         });
@@ -109,7 +109,7 @@ app.post("/login", async (req, res) => {
 // ================= ADD TRAIL =================
 app.post("/addTrail", async (req, res) => {
   try {
-    const { name, level, governorate, image, description, location, lat, lng } = req.body; // ✅
+    const { name, level, governorate, image, description, location, lat, lng } = req.body; 
 
     const newTrail = new TrailModel({
       name,
@@ -154,11 +154,11 @@ app.delete("/deleteTrail/:id", async (req, res) => {
 app.put("/editTrail/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, level, governorate, image, description, location, lat, lng } = req.body; // ✅
+    const { name, level, governorate, image, description, location, lat, lng } = req.body;
 
     const updatedTrail = await TrailModel.findByIdAndUpdate(
       id,
-      { name, level, governorate, image, description, location, lat, lng }, // ✅
+      { name, level, governorate, image, description, location, lat, lng }, 
       { new: true }
     );
     res.send({ message: "Trail Updated Successfully", trail: updatedTrail });

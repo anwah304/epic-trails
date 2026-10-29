@@ -1,4 +1,4 @@
-/* ===== الصفحات ===== */
+
 .dashboard-page, .destination-page {
   min-height: 80vh;
   padding: 50px 5vw;
@@ -23,7 +23,7 @@
 .dashboard-header p { color: var(--moss); max-width: 600px; margin: 0 auto; }
 .dashboard-header .add-btn { margin-top: 18px; }
 
-/* ===== الكروت ===== */
+
 .dashboard-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -75,12 +75,12 @@
 }
 .contact-info p { font-size: .85rem; }
 
-/* ===== Admin: إحصائيات ===== */
+
 .stats-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 22px;
-  max-width: 900px; /* ✅ كان 700px */
+  max-width: 900px; 
   margin: 0 auto 35px;
 }
 .stats-card {
@@ -120,7 +120,7 @@
   background: var(--sand-2);
 }
 
-/* ===== بادج المستوى ===== */
+
 .level-pill {
   display: inline-block;
   padding: 4px 16px;
@@ -136,8 +136,7 @@
 
 .guide-specialty { color: var(--sunset) !important; font-weight: 600; }
 
-/* ===== أزرار التعديل والحذف =====
-   (مكتوبة بـ .admin-actions عشان تغلب قاعدة .card-content button) */
+
 .admin-actions { display: flex; justify-content: center; gap: 12px; margin-top: 12px; }
 
 .admin-actions .edit-btn,

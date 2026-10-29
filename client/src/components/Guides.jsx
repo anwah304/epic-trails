@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import "../style/Guides.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import Reveal from "./Reveal"; // ✅ جديد
+import Reveal from "./Reveal";
 
 import { useDispatch, useSelector } from "react-redux";
 import { getGuides } from "../features/GuideSlice";

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 
 const MainPage=() =>{
 
-  // ✅ جديد: الزائر يبدأ بدون جلسة قديمة
+  
   const handleGuest = () => {
     localStorage.removeItem("user");
   };
@@ -46,7 +46,7 @@ const MainPage=() =>{
             Step into a world of breathtaking landscapes, where every trail tells a story.
           </p>
 
-          {/* ✅ جديد: الزرين جنب بعض */}
+         
           <div className="hero-actions">
             <Link to="/login" className="start-btn">
               START YOUR JOURNEY

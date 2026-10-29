@@ -1,42 +1,54 @@
-import { Col, Row, Container } from "reactstrap";
+
+import { Container } from "reactstrap";
+import { Link } from "react-router-dom";
+import { FiCompass } from "react-icons/fi";
 import "../style/Footer.css";
 
 const Footer = () => {
   return (
     <footer className="footer">
-
       <Container>
+        <div className="footer-content">
+          
+          <div className="footer-brand">
+            <div className="footer-logo">
+              <FiCompass />
+              <h3>Epic Trails</h3>
+            </div>
 
-        <Row className="footer-content">
-
-          <Col md="6">
-            <h5>Contact Us</h5>
-
-            <p>Email: epictrails@gmail.com</p>
-            <p>Phone: +968 90987762</p>
-          </Col>
-
-          <Col md="6" className="social-section">
-            <h5>Follow Us</h5>
-
-            <p>Facebook</p>
-            <p>Instagram</p>
-          </Col>
-
-        </Row>
-
-        <hr />
-
-        <Row>
-          <Col>
-            <p className="copyright">
-              © 2026 Epic Trails | Designed by Anwah Ibrahim AL-Sinani
+            <p>
+              Discover new destinations, explore amazing
+              trails, and make every journey an adventure.
             </p>
-          </Col>
-        </Row>
 
+            <span className="footer-tagline">
+              Discover. Explore. Experience.
+            </span>
+          </div>
+
+          
+          <nav
+            className="footer-navigation"
+            aria-label="Footer navigation"
+          >
+            <h5>Explore</h5>
+
+            <Link to="/home">Home</Link>
+            <Link to="/destinations">Destinations</Link>
+          </nav>
+        </div>
+        <div className="footer-bottom">
+          <p>
+            © {new Date().getFullYear()} Epic Trails.
+            All rights reserved.
+          </p>
+
+          <p className="footer-credit">
+            Designed &amp; Developed by{" "}
+            <span>Anwah Ibrahim Al-Sinani</span>
+          </p>
+        </div>
       </Container>
-
     </footer>
   );
 };

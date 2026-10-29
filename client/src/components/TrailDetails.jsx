@@ -31,7 +31,7 @@ const TrailDetails = () => {
     );
   }
 
-  // ✅ يستخدم lat/lng
+  
   const getEmbedUrl = (lat, lng) => {
     if (!lat || !lng) return null;
     return `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;

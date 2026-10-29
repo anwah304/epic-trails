@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"; // ✅ أضفنا useState
-import axios from "axios"; // ✅ جديد
+import React, { useEffect, useState } from "react"; 
+import axios from "axios"; 
 import "../style/Destination.css";
 
 import AdminNavbar from "./AdminNavbar";
@@ -16,7 +16,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { FaUserTie } from "react-icons/fa";
-import { FaUsers } from "react-icons/fa"; // ✅ جديد
+import { FaUsers } from "react-icons/fa"; 
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -25,13 +25,11 @@ const AdminDashboard = () => {
   const trails = useSelector((state) => state.trail.trails) || [];
   const guides = useSelector((state) => state.guide.guides) || [];
 
-  const [usersCount, setUsersCount] = useState(0); // ✅ جديد
+  const [usersCount, setUsersCount] = useState(0); 
 
   useEffect(() => {
     dispatch(getTrails());
     dispatch(getGuides());
-
-    // ✅ جديد: جلب عدد المستخدمين من السيرفر
     axios
       .get("http://localhost:3004/usersCount")
       .then((res) => setUsersCount(res.data.count))
@@ -76,7 +74,6 @@ const AdminDashboard = () => {
               </div>
             </Reveal>
 
-            {/* ✅ جديد: كرت المستخدمين */}
             <Reveal delay={240}>
               <div className="stats-card">
                 <FaUsers className="stats-icon" />

@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../features/UserSlice';
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // ✅ بدل <a href> عشان ما تنعاد الصفحة
+import { Link } from 'react-router-dom';
 
 const Register = () => {
     let [email,setEmail]=useState("");
@@ -27,18 +27,18 @@ const Register = () => {
     };
 
     return (
-        // ✅ الهيكل الجديد
+       
         <div className="auth-page">
             <div className="auth-card">
 
-                {/* القسم الأيسر: اللوجو */}
+               
                 <div className="auth-side">
                     <img src={Logo} className="auth-logo" alt="Epic Trails" />
                     <h2>EPIC TRAILS</h2>
                     <p>Join us and discover the most beautiful hiking trails in Oman.</p>
                 </div>
 
-                {/* القسم الأيمن: الفورم */}
+               
                 <div className="auth-form-wrap">
                     <h1>Create Account</h1>
                     <p className="auth-sub">Start your journey in a few seconds</p>

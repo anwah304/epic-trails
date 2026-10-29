@@ -12,7 +12,7 @@ const Reveal = ({ children, delay = 0 }) => {
       ([entry]) => {
         if (entry.isIntersecting) {
           setVisible(true);
-          observer.disconnect(); // تتحرك مرة وحدة بس
+          observer.disconnect(); 
         }
       },
       { threshold: 0.15 }

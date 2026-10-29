@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../style/Destination.css";
 import AdminNavbar from "./AdminNavbar";
-import Reveal from "./Reveal"; // ✅ جديد
+import Reveal from "./Reveal"; 
 import { useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
@@ -17,7 +17,7 @@ const ManageGuides = () => {
     dispatch(getGuides());
   }, [dispatch]);
 
-  // ✅ جديد: تأكيد قبل الحذف
+ 
   const handleDelete = (id) => {
     if (window.confirm("Delete this guide?")) dispatch(deleteGuide(id));
   };
@@ -41,7 +41,7 @@ const ManageGuides = () => {
               <p className="empty-text">No guides yet</p>
             ) : (
               guides.map((guide, i) => (
-                <Reveal key={guide._id} delay={i * 80}> {/* ✅ جديد */}
+                <Reveal key={guide._id} delay={i * 80}> 
                   <div className="dashboard-card">
                     <img src={guide.image} alt={guide.name} />
                     <div className="card-content">

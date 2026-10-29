@@ -25,7 +25,7 @@ Epic Trails is a full-stack web platform for exploring hiking trails across all 
 ### For admins
 - **Dashboard** with live statistics: total trails, guides, registered users and logged-in users
 - **Full CRUD** for trails and guides (add, edit, delete with confirmation)
-- **Login tracking** (last login and login count per user)
+- **Login tracking** ( login count per user)
 
 ## Tech Stack
 
@@ -116,9 +116,9 @@ Register a normal account from the app, then change its `role` field from `"user
 - Favorite trails for each user
 - Deploy the app online
 
-## Team
+## Designed and developed by :
 
-Designed and developed by **Anwah Ibrahim AL-Sinani**.
+ **Anwah Ibrahim AL-Sinani**.
 
 
 

@@ -4,7 +4,7 @@
   background: var(--sand);
 }
 
-/* ===== Hero ===== */
+
 .profile-hero {
   position: relative;
   max-width: 900px;
@@ -18,7 +18,7 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* جبال مرسومة بـ CSS */
+
 .profile-mountains {
   position: absolute;
   left: 0; right: 0; bottom: 0;
@@ -65,7 +65,7 @@
   letter-spacing: 2px;
 }
 
-/* ===== Stats ===== */
+
 .profile-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -87,7 +87,7 @@
 .pstat h2 { font-size: 2.6rem; color: var(--forest); margin: 8px 0 0; }
 .pstat p { color: var(--moss); margin: 0; font-weight: 600; }
 
-/* ===== Levels ===== */
+
 .profile-card {
   max-width: 900px;
   margin: 0 auto 30px;
@@ -106,7 +106,7 @@
 .level-fill.hard { background: var(--hard); }
 .level-count { width: 28px; text-align: right; font-weight: 700; color: var(--forest); }
 
-/* ===== Actions ===== */
+
 .profile-actions {
   display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;
   max-width: 900px; margin: 0 auto;

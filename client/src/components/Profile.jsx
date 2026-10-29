@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import Reveal from "./Reveal";
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom"; // ✅ جديد: أضفنا Navigate
+import { useNavigate, Navigate } from "react-router-dom"; 
 import { getTrails } from "../features/TrailSlice";
 import { getGuides } from "../features/GuideSlice";
 
@@ -14,7 +14,6 @@ import femaleProfile from "../assets/female-profile.png";
 import { FaMapMarkedAlt, FaUserTie, FaMountain, FaMale, FaFemale } from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 
-// عدّاد يتحرك من 0 إلى الرقم
 const CountUp = ({ value }) => {
   const [n, setN] = useState(0);
 
@@ -54,7 +53,7 @@ const Profile = () => {
   const displayName =
     user.username || user.name || (user.email ? user.email.split("@")[0] : "Explorer");
 
-  // اختيار الصورة حسب الجنس
+  
   const isFemale = (user.gender || "").toLowerCase() === "female";
   const defaultAvatar = isFemale ? femaleProfile : maleProfile;
   const avatar = user.profilepic || defaultAvatar;
@@ -64,8 +63,6 @@ const Profile = () => {
     dispatch(getGuides());
   }, [dispatch]);
 
-  // ✅ جديد: الزائر ما له بروفايل، يتحول لصفحة الدخول
-  // (لازم يكون بعد كل الـ hooks فوق، وإلا React يعطي خطأ)
   if (!user.email && !user._id) {
     return <Navigate to="/login" replace />;
   }
@@ -82,7 +79,7 @@ const Profile = () => {
       <Navbar />
 
       <div className="profile-page">
-        {/* ====== البطاقة الرئيسية ====== */}
+        
         <div className="profile-hero">
           <div className="profile-mountains" aria-hidden="true" />
 
@@ -111,7 +108,7 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* ====== الإحصائيات ====== */}
+        
         <div className="profile-stats">
           <Reveal delay={0}>
             <div className="pstat">
@@ -138,7 +135,7 @@ const Profile = () => {
           </Reveal>
         </div>
 
-        {/* ====== توزيع المستويات ====== */}
+        
         <Reveal>
           <div className="profile-card">
             <h3>Trails by Difficulty</h3>
@@ -165,7 +162,7 @@ const Profile = () => {
           </div>
         </Reveal>
 
-        {/* ====== أزرار سريعة ====== */}
+        
         <Reveal>
           <div className="profile-actions">
             <button onClick={() => navigate("/search")}>FIND A TRAIL</button>

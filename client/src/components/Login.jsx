@@ -26,7 +26,7 @@ const Login = () => {
        dispatch(login(udata));
     }
 
-    // ✅ جديد: الدخول كزائر
+   
     const handleGuest = () => {
         localStorage.removeItem("user");
         navigate("/home");
@@ -104,7 +104,7 @@ const Login = () => {
 
                         <button type="submit" className="auth-btn">SIGN IN</button>
 
-                        {/* ✅ جديد: زر الزائر */}
+                      
                         <div className="auth-divider">OR</div>
                         <button type="button" className="auth-guest" onClick={handleGuest}>
                             CONTINUE AS GUEST

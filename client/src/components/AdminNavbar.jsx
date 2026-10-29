@@ -1,19 +1,19 @@
 import React from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom"; // ✅ أضفنا NavLink و useNavigate
+import { NavLink, Link, useNavigate } from "react-router-dom"; 
 import { IoIosLogOut } from "react-icons/io";
 import logo from "../assets/logo-t.png";
 import "../style/AdminNavbar.css";
 
 const AdminNavbar = () => {
-  const navigate = useNavigate(); // ✅ جديد
+  const navigate = useNavigate(); 
 
-  // ✅ جديد: تسجيل الخروج يمسح الجلسة (قبل كان يرجع للرئيسية بس)
+  
   const handleLogout = () => {
     localStorage.removeItem("user");
     navigate("/");
   };
 
-  // ✅ جديد: يعلّم الرابط النشط
+  
   const linkClass = ({ isActive }) => (isActive ? "active" : "");
 
   return (

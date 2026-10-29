@@ -7,7 +7,6 @@ export const RegisterValidation = yup.object().shape({
         .string()
         .email('Invalid email format')
         .required('Email is required'),
-    // ✅ جديد: يجبر المستخدم يختار الجنس
     gender: yup
         .string()
         .oneOf(['Male', 'Female'], 'Please select your gender')

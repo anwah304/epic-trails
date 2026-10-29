@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../style/Destination.css";
 import AdminNavbar from "./AdminNavbar";
-import Reveal from "./Reveal"; // ✅ جديد
+import Reveal from "./Reveal"; 
 import { useNavigate } from "react-router-dom";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
@@ -17,7 +17,7 @@ const ManageTrails = () => {
     dispatch(getTrails());
   }, [dispatch]);
 
-  // ✅ جديد: تأكيد قبل الحذف
+ 
   const handleDelete = (id) => {
     if (window.confirm("Delete this trail?")) dispatch(deleteTrail(id));
   };
@@ -42,7 +42,7 @@ const ManageTrails = () => {
               <p className="empty-text">No trails yet</p>
             ) : (
               trails.map((trail, i) => (
-                <Reveal key={trail._id} delay={i * 80}> {/* ✅ جديد */}
+                <Reveal key={trail._id} delay={i * 80}> 
                   <div className="dashboard-card">
                     <img src={trail.image} alt={trail.name} />
                     <div className="card-content">
