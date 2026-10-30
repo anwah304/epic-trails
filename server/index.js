@@ -2,39 +2,31 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import UserModel from "./models/Users.js";
 import bcrypt from "bcrypt";
-import TrailModel from "./models/Trails.js";
-import GuideModel from "./models/Guides.js";
 import nodemailer from "nodemailer";
 import crypto from "node:crypto";
+import UserModel from "./models/Users.js";
+import TrailModel from "./models/Trails.js";
+import GuideModel from "./models/Guides.js";
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// ================= SERVER =================
 app.listen(3004, () => {
   console.log("Server Connected at port no 3004");
 });
 
-// ================= DATABASE =================
-const conStr = process.env.MONGO_URI;
 mongoose
-  .connect(conStr)
-  .then(() => {
-    console.log("Database Connected..");
-  })
-  .catch((error) => {
-    console.log("Database Connection Error.." + error);
-  });
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Database Connected.."))
+  .catch((error) => console.log("Database Connection Error.." + error));
 
-// ================= USERS =================
 app.get("/Users", async (req, res) => {
   try {
-    // ✅ تغيّر: ما نرجّع الباسوردات ولا حقول إعادة التعيين
     const users = await UserModel.find({}).select(
-      "-password -resetPasswordToken -resetPasswordExpires"
+      "-password -resetPasswordToken -resetPasswordExpires -resetPasswordAttempts"
     );
     res.send(users);
   } catch (error) {
@@ -42,10 +34,8 @@ app.get("/Users", async (req, res) => {
   }
 });
 
-// ================= USERS COUNT =================
 app.get("/usersCount", async (req, res) => {
   try {
-    // يعد المستخدمين العاديين فقط (بدون الأدمن)
     const count = await UserModel.countDocuments({ role: { $ne: "admin" } });
     res.send({ count });
   } catch (error) {
@@ -53,7 +43,6 @@ app.get("/usersCount", async (req, res) => {
   }
 });
 
-// ================= REGISTER =================
 app.post("/register", async (req, res) => {
   try {
     const { email, username, password, profilepic, gender } = req.body;
@@ -75,46 +64,37 @@ app.post("/register", async (req, res) => {
     });
 
     await newuser.save();
-    // ✅ تغيّر: شلنا console.log(newuser) لأنه يطبع الباسورد المشفر
     res.send({ message: "User Registered..." });
   } catch (error) {
     res.send("Read Error.." + error);
   }
 });
 
-// ================= LOGIN =================
 app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await UserModel.findOne({ email });
 
-    if (user) {
-      const match = await bcrypt.compare(password, user.password);
-
-      if (match) {
-        return res.send({
-          message: "success",
-          user: {
-            _id: user._id,
-            email: user.email,
-            username: user.username,
-            profilepic: user.profilepic,
-            gender: user.gender,
-            role: user.role,
-          },
-        });
-      } else {
-        return res.send({ message: "Invalid Credentials" });
-      }
-    } else {
-      return res.send({ message: "Invalid Credentials" });
+    if (user && (await bcrypt.compare(password, user.password))) {
+      return res.send({
+        message: "success",
+        user: {
+          _id: user._id,
+          email: user.email,
+          username: user.username,
+          profilepic: user.profilepic,
+          gender: user.gender,
+          role: user.role,
+        },
+      });
     }
+
+    res.send({ message: "Invalid Credentials" });
   } catch (error) {
     res.send("Read Error.." + error);
   }
 });
 
-// ================= ADD TRAIL =================
 app.post("/addTrail", async (req, res) => {
   try {
     const { name, level, governorate, image, description, location, lat, lng } = req.body;
@@ -137,7 +117,6 @@ app.post("/addTrail", async (req, res) => {
   }
 });
 
-// ================= GET TRAILS =================
 app.get("/getTrails", async (req, res) => {
   try {
     const trails = await TrailModel.find({});
@@ -147,25 +126,21 @@ app.get("/getTrails", async (req, res) => {
   }
 });
 
-// ================= DELETE TRAIL =================
 app.delete("/deleteTrail/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-    await TrailModel.findByIdAndDelete(id);
+    await TrailModel.findByIdAndDelete(req.params.id);
     res.send({ message: "Trail Deleted Successfully" });
   } catch (error) {
     res.status(500).send("Delete Trail Error.." + error);
   }
 });
 
-// ================= EDIT TRAIL =================
 app.put("/editTrail/:id", async (req, res) => {
   try {
-    const { id } = req.params;
     const { name, level, governorate, image, description, location, lat, lng } = req.body;
 
     const updatedTrail = await TrailModel.findByIdAndUpdate(
-      id,
+      req.params.id,
       { name, level, governorate, image, description, location, lat, lng },
       { new: true }
     );
@@ -175,24 +150,27 @@ app.put("/editTrail/:id", async (req, res) => {
   }
 });
 
-// ================= ADD GUIDE =================
 app.post("/addGuide", async (req, res) => {
   try {
     const { name, specialty, phone, email, gender, image, description } = req.body;
 
     const newGuide = new GuideModel({
-      name, specialty, phone, email, gender, image, description,
+      name,
+      specialty,
+      phone,
+      email,
+      gender,
+      image,
+      description,
     });
 
     await newGuide.save();
     res.send({ message: "Guide Added Successfully", guide: newGuide });
   } catch (error) {
-    console.log(error);
     res.status(500).send("Add Guide Error.." + error);
   }
 });
 
-// ================= GET GUIDES =================
 app.get("/getGuides", async (req, res) => {
   try {
     const guides = await GuideModel.find({});
@@ -202,14 +180,12 @@ app.get("/getGuides", async (req, res) => {
   }
 });
 
-// ================= EDIT GUIDE =================
 app.put("/editGuide/:id", async (req, res) => {
   try {
-    const { id } = req.params;
     const { name, specialty, phone, email, gender, image, description } = req.body;
 
     const updatedGuide = await GuideModel.findByIdAndUpdate(
-      id,
+      req.params.id,
       { name, specialty, phone, email, gender, image, description },
       { new: true }
     );
@@ -219,89 +195,74 @@ app.put("/editGuide/:id", async (req, res) => {
   }
 });
 
-// ================= DELETE GUIDE =================
 app.delete("/deleteGuide/:id", async (req, res) => {
   try {
-    const { id } = req.params;
-    await GuideModel.findByIdAndDelete(id);
+    await GuideModel.findByIdAndDelete(req.params.id);
     res.send({ message: "Guide Deleted Successfully" });
   } catch (error) {
     res.status(500).send("Delete Guide Error.." + error);
   }
 });
 
-// ================= FORGOT / RESET PASSWORD =================
-const hashToken = (token) =>
-  crypto.createHash("sha256").update(token).digest("hex");
+const OTP_TTL_MS = 10 * 60 * 1000;
+const OTP_MAX_ATTEMPTS = 5;
+const OTP_RESEND_MS = 60 * 1000;
+
+const clearOtp = {
+  resetPasswordToken: "",
+  resetPasswordExpires: "",
+  resetPasswordAttempts: "",
+};
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
 });
 
-// ✅ جديد: وضع تجريبي، يظهر زر Reset مباشرة (لا تشغلينه في الموقع المنشور)
-const DEMO_RESET = process.env.DEMO_RESET === "true";
-
-// 1) طلب إعادة تعيين الباسورد
 app.post("/forgot-password", async (req, res) => {
   const generic = {
-    message: "If this email is registered, a reset link has been sent.",
+    message: "If this email is registered, a verification code has been sent.",
   };
 
   try {
     const email = String(req.body.email || "").trim();
     const user = await UserModel.findOne({ email });
 
-    // ✅ تغيّر: في الوضع التجريبي نخبر الواجهة إن الإيميل غير مسجل
-    if (!user) {
-      return res.send(
-        DEMO_RESET
-          ? { exists: false, message: "This email is not registered." }
-          : generic
-      );
-    }
+    if (!user) return res.send(generic);
 
-    const token = crypto.randomBytes(32).toString("hex");
+    const sentAt = user.resetPasswordExpires
+      ? user.resetPasswordExpires.getTime() - OTP_TTL_MS
+      : 0;
+    if (Date.now() - sentAt < OTP_RESEND_MS) return res.send(generic);
+
+    const otp = String(crypto.randomInt(0, 1000000)).padStart(6, "0");
+    const otpHash = await bcrypt.hash(otp, 10);
 
     await UserModel.updateOne(
       { _id: user._id },
       {
         $set: {
-          resetPasswordToken: hashToken(token),
-          resetPasswordExpires: new Date(Date.now() + 30 * 60 * 1000), // 30 دقيقة
+          resetPasswordToken: otpHash,
+          resetPasswordExpires: new Date(Date.now() + OTP_TTL_MS),
+          resetPasswordAttempts: 0,
         },
       }
     );
 
-    const link = `${process.env.CLIENT_URL}/reset-password/${token}`;
-
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-      try {
-        await transporter.sendMail({
-          from: `"Epic Trails" <${process.env.EMAIL_USER}>`,
-          to: user.email,
-          subject: "Reset your Epic Trails password",
-          html: `
-            <p>Hello ${user.username},</p>
-            <p>We received a request to reset your password. This link is valid for 30 minutes:</p>
-            <p><a href="${link}">Reset my password</a></p>
-            <p>If you did not request this, you can ignore this email.</p>
-          `,
-        });
-      } catch (mailError) {
-        console.log("Email Error.. " + mailError);
-      }
-    } else {
-      console.log("RESET LINK (dev mode):", link);
-    }
-
-    // ✅ جديد: نرجع الكود للواجهة عشان تعرض الزر
-    if (DEMO_RESET) {
-      return res.send({
-        exists: true,
-        token,
-        message: "Email verified. You can reset your password now.",
+    try {
+      await transporter.sendMail({
+        from: `"Epic Trails" <${process.env.EMAIL_USER}>`,
+        to: user.email,
+        subject: "Your Epic Trails verification code",
+        html: `
+          <p>Hello ${user.username},</p>
+          <p>Your verification code is:</p>
+          <h2 style="letter-spacing:6px;">${otp}</h2>
+          <p>It is valid for 10 minutes. If you did not request this, you can ignore this email.</p>
+        `,
       });
+    } catch (mailError) {
+      console.log("Email Error.. " + mailError);
     }
 
     res.send(generic);
@@ -311,77 +272,64 @@ app.post("/forgot-password", async (req, res) => {
   }
 });
 
-// 2) تعيين الباسورد الجديد
-app.post("/reset-password/:token", async (req, res) => {
+app.post("/reset-password", async (req, res) => {
   try {
+    const email = String(req.body.email || "").trim();
+    const otp = String(req.body.otp || "").trim();
     const { password } = req.body;
 
+    if (!/^\d{6}$/.test(otp)) {
+      return res.status(400).send({ message: "Enter the 6-digit code." });
+    }
     if (!password || password.length < 6) {
       return res
         .status(400)
         .send({ message: "Password must be at least 6 characters" });
     }
 
-    const user = await UserModel.findOne({
-      resetPasswordToken: hashToken(req.params.token),
-      resetPasswordExpires: { $gt: new Date() },
-    });
+    const invalidCode = { message: "Invalid or expired code." };
+    const user = await UserModel.findOne({ email });
 
-    if (!user) {
-      return res
-        .status(400)
-        .send({ message: "This reset link is invalid or has expired." });
+    if (
+      !user ||
+      !user.resetPasswordToken ||
+      !user.resetPasswordExpires ||
+      user.resetPasswordExpires < new Date()
+    ) {
+      return res.status(400).send(invalidCode);
+    }
+
+    const match = await bcrypt.compare(otp, user.resetPasswordToken);
+
+    if (!match) {
+      const attempts = (user.resetPasswordAttempts || 0) + 1;
+
+      if (attempts >= OTP_MAX_ATTEMPTS) {
+        await UserModel.updateOne({ _id: user._id }, { $unset: clearOtp });
+        return res.status(400).send({
+          message: "Too many wrong attempts. Please request a new code.",
+        });
+      }
+
+      await UserModel.updateOne(
+        { _id: user._id },
+        { $set: { resetPasswordAttempts: attempts } }
+      );
+      return res.status(400).send({
+        message: `Invalid code. ${OTP_MAX_ATTEMPTS - attempts} attempts left.`,
+      });
     }
 
     const hpwd = await bcrypt.hash(password, 10);
 
     await UserModel.updateOne(
       { _id: user._id },
-      {
-        $set: { password: hpwd },
-        $unset: { resetPasswordToken: "", resetPasswordExpires: "" },
-      }
+      { $set: { password: hpwd }, $unset: clearOtp }
     );
 
     res.send({ message: "Password updated successfully" });
   } catch (error) {
     console.log("Reset Password Error.. " + error);
     res.status(500).send({ message: "Could not reset password" });
-  }
-});
-
-const weatherCache = new Map();
-const WEATHER_TTL = 10 * 60 * 1000; // 10 دقايق
-
-app.get("/weather", async (req, res) => {
-  try {
-    const q = String(req.query.q || "").trim();
-    if (!q || q.length > 80) {
-      return res.status(400).send({ message: "Invalid location" });
-    }
-
-    const hit = weatherCache.get(q);
-    if (hit && Date.now() - hit.time < WEATHER_TTL) {
-      return res.send(hit.data);
-    }
-
-    const url =
-      `https://api.weatherapi.com/v1/current.json` +
-      `?key=${process.env.WEATHER_API_KEY}&q=${encodeURIComponent(q)}&aqi=no`;
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (!response.ok) {
-      return res
-        .status(response.status)
-        .send({ message: data.error?.message || "Weather error" });
-    }
-
-    weatherCache.set(q, { time: Date.now(), data });
-    res.send(data);
-  } catch (error) {
-    console.log("Weather Error.. " + error);
-    res.status(500).send({ message: "Weather service unavailable" });
   }
 });

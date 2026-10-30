@@ -53,7 +53,7 @@ function App() {
           <Route path="/guides" element={<Guides />} />
           <Route path="/search" element={<Search />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
+<Route path="/reset-password" element={<ResetPassword />} />
           <Route
             path="/admin"
             element={<ProtectedRoute element={<AdminDashboard />} />}

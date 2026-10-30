@@ -1,29 +1,17 @@
 import { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom"; // ✅ أضفنا useNavigate
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/logo-t.png";
 
 const ForgotPassword = () => {
-    const navigate = useNavigate(); // ✅ جديد
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
-    const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const [resetToken, setResetToken] = useState(""); // ✅ جديد: الزر يظهر لما يكون فيه قيمة
-
-    // ✅ جديد: لو غيّرتي الإيميل، يختفي الزر والرسائل
-    const handleEmailChange = (e) => {
-        setEmail(e.target.value);
-        setResetToken("");
-        setMessage("");
-        setError("");
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
-        setMessage("");
-        setResetToken(""); // ✅ جديد
 
         if (!/^\S+@\S+\.\S+$/.test(email)) {
             setError("Please enter a valid email");
@@ -32,17 +20,8 @@ const ForgotPassword = () => {
 
         setLoading(true);
         try {
-            const res = await axios.post("http://localhost:3004/forgot-password", { email });
-
-            // ✅ تغيّر: نعالج الحالات الثلاث
-            if (res.data.exists === false) {
-                setError(res.data.message);           // الإيميل غير مسجل
-            } else if (res.data.exists === true && res.data.token) {
-                setMessage(res.data.message);
-                setResetToken(res.data.token);        // يظهر الزر (الوضع التجريبي)
-            } else {
-                setMessage(res.data.message);         // الوضع الآمن: رسالة عامة
-            }
+            await axios.post("http://localhost:3004/forgot-password", { email });
+            navigate("/reset-password", { state: { email } });
         } catch (err) {
             setError("Something went wrong. Please try again.");
         } finally {
@@ -62,11 +41,9 @@ const ForgotPassword = () => {
 
                 <div className="auth-form-wrap">
                     <h1>Forgot Password</h1>
-                    <p className="auth-sub">Enter your email to continue</p> {/* ✅ تغيّر النص */}
+                    <p className="auth-sub">Enter your email and we will send you a 6-digit code</p>
 
                     <form className="auth-form" onSubmit={handleSubmit}>
-
-                        {message && <p className="auth-message success">{message}</p>}
 
                         <div className="auth-field">
                             <label>Email</label>
@@ -74,25 +51,14 @@ const ForgotPassword = () => {
                                 type="email"
                                 placeholder="Enter your email"
                                 value={email}
-                                onChange={handleEmailChange} // ✅ تغيّر
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             <small className="auth-error">{error}</small>
                         </div>
 
                         <button type="submit" className="auth-btn" disabled={loading}>
-                            {loading ? "CHECKING..." : "CHECK EMAIL"} {/* ✅ تغيّر النص */}
+                            {loading ? "SENDING..." : "SEND CODE"}
                         </button>
-
-                        {/* ✅ جديد: الزر يظهر بعد التحقق من الإيميل */}
-                        {resetToken && (
-                            <button
-                                type="button"
-                                className="auth-btn auth-btn-go"
-                                onClick={() => navigate(`/reset-password/${resetToken}`)}
-                            >
-                                RESET PASSWORD NOW →
-                            </button>
-                        )}
 
                         <p className="auth-switch">
                             Remembered it? <Link to="/login">Back to Login</Link>
