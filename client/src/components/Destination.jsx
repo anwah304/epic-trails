@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import "../style/Destination.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import Reveal from "./Reveal"; 
+import Reveal from "./Reveal";
+import FavoriteButton from "./FavoriteButton"; 
 
 import { useDispatch, useSelector } from "react-redux";
 import { getTrails } from "../features/TrailSlice";
@@ -38,10 +39,12 @@ const Destination = () => {
             {trails.length === 0 ? (
               <p className="empty-text">No trails available</p>
             ) : (
-              trails.map((trail, i) => ( 
-                <Reveal key={trail._id} delay={i * 80}> 
-                  <div className="dashboard-card"> 
+              trails.map((trail, i) => (
+                <Reveal key={trail._id} delay={i * 80}>
+                  <div className="dashboard-card">
                     <img src={trail.image} alt={trail.name} />
+
+                    <FavoriteButton trailId={trail._id} /> 
 
                     <div className="card-content">
                       <h3>
@@ -54,7 +57,7 @@ const Destination = () => {
                       </button>
                     </div>
                   </div>
-                </Reveal> 
+                </Reveal>
               ))
             )}
           </div>

@@ -5,7 +5,8 @@ import { getTrails } from "../features/TrailSlice";
 
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import Reveal from "./Reveal"; 
+import Reveal from "./Reveal";
+import FavoriteButton from "./FavoriteButton"; 
 
 const GovernoratePage = () => {
   const { name } = useParams();
@@ -44,11 +45,13 @@ const GovernoratePage = () => {
                 No trails in this governorate
               </p>
             ) : (
-              filteredTrails.map((trail, i) => ( 
-                <Reveal key={trail._id} delay={i * 80}> 
-                  <div className="dashboard-card"> 
+              filteredTrails.map((trail, i) => (
+                <Reveal key={trail._id} delay={i * 80}>
+                  <div className="dashboard-card">
 
                     <img src={trail.image} alt={trail.name} />
+
+                    <FavoriteButton trailId={trail._id} /> 
 
                     <div className="card-content">
 
@@ -64,7 +67,7 @@ const GovernoratePage = () => {
                     </div>
 
                   </div>
-                </Reveal> 
+                </Reveal>
               ))
             )}
 

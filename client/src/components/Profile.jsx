@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from "react";
 import "../style/Profile.css";
+import "../style/Destination.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Reveal from "./Reveal";
+import FavoriteButton from "./FavoriteButton"; 
 
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom"; 
+import { useNavigate, Navigate } from "react-router-dom";
 import { getTrails } from "../features/TrailSlice";
 import { getGuides } from "../features/GuideSlice";
+import { clearFavorites } from "../features/FavoriteSlice"; 
 
 import maleProfile from "../assets/male-profile.jpg";
 import femaleProfile from "../assets/female-profile.png";
-import { FaMapMarkedAlt, FaUserTie, FaMountain, FaMale, FaFemale } from "react-icons/fa";
+import {
+  FaMapMarkedAlt, FaUserTie, FaMountain, FaMale, FaFemale, FaHeart, 
+} from "react-icons/fa";
 import { IoIosLogOut } from "react-icons/io";
 
 const CountUp = ({ value }) => {
@@ -48,12 +53,12 @@ const Profile = () => {
 
   const trails = useSelector((state) => state.trail.trails) || [];
   const guides = useSelector((state) => state.guide.guides) || [];
+  const favoriteIds = useSelector((state) => state.favorite.ids); 
 
   const user = getStoredUser();
   const displayName =
     user.username || user.name || (user.email ? user.email.split("@")[0] : "Explorer");
 
-  
   const isFemale = (user.gender || "").toLowerCase() === "female";
   const defaultAvatar = isFemale ? femaleProfile : maleProfile;
   const avatar = user.profilepic || defaultAvatar;
@@ -69,8 +74,11 @@ const Profile = () => {
 
   const count = (lvl) => trails.filter((t) => t.level === lvl).length;
 
+  const favoriteTrails = trails.filter((t) => favoriteIds.includes(t._id));
+
   const handleLogout = () => {
     localStorage.removeItem("user");
+    dispatch(clearFavorites()); 
     navigate("/");
   };
 
@@ -79,7 +87,6 @@ const Profile = () => {
       <Navbar />
 
       <div className="profile-page">
-        
         <div className="profile-hero">
           <div className="profile-mountains" aria-hidden="true" />
 
@@ -108,7 +115,6 @@ const Profile = () => {
           </div>
         </div>
 
-        
         <div className="profile-stats">
           <Reveal delay={0}>
             <div className="pstat">
@@ -133,9 +139,16 @@ const Profile = () => {
               <p>Hard Challenges</p>
             </div>
           </Reveal>
+
+          <Reveal delay={360}>
+            <div className="pstat">
+              <FaHeart className="pstat-icon" />
+              <h2><CountUp value={favoriteTrails.length} /></h2>
+              <p>My Favorites</p>
+            </div>
+          </Reveal>
         </div>
 
-        
         <Reveal>
           <div className="profile-card">
             <h3>Trails by Difficulty</h3>
@@ -163,6 +176,44 @@ const Profile = () => {
         </Reveal>
 
         
+        <section className="profile-favs" id="favorites">
+          <h2 className="section-title">
+            <FaHeart className="profile-favs-icon" /> My Favorite Trails
+          </h2>
+
+          {favoriteTrails.length === 0 ? (
+            <div className="profile-empty">
+              <FaHeart className="profile-empty-icon" />
+              <p>You have not saved any trails yet.</p>
+              <button onClick={() => navigate("/home")}>EXPLORE TRAILS</button>
+            </div>
+          ) : (
+            <div className="dashboard-cards">
+              {favoriteTrails.map((trail, i) => (
+                <Reveal key={trail._id} delay={i * 80}>
+                  <div className="dashboard-card">
+                    <img src={trail.image} alt={trail.name} />
+
+                    <FavoriteButton trailId={trail._id} />
+
+                    <div className="card-content">
+                      <h3>{trail.name.toUpperCase()}</h3>
+                      <span className={`level-pill ${(trail.level || "").toLowerCase()}`}>
+                        {trail.level}
+                      </span>
+                      <p>{trail.governorate}</p>
+
+                      <button onClick={() => navigate(`/trail/${trail._id}`)}>
+                        DETAILS
+                      </button>
+                    </div>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          )}
+        </section>
+
         <Reveal>
           <div className="profile-actions">
             <button onClick={() => navigate("/search")}>FIND A TRAIL</button>

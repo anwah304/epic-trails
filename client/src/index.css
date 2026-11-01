@@ -293,3 +293,57 @@ button { font-family: inherit; cursor: pointer; }
   border: none;
 }
 .auth-link-btn:disabled { color: var(--moss); cursor: default; }
+
+
+.fav-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  color: var(--forest);
+  background: rgba(255, 255, 255, 0.92);
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.25s, color 0.25s, background 0.25s;
+}
+.fav-btn:hover { transform: scale(1.12); }
+.fav-btn.active { color: var(--hard); }
+.fav-btn.active svg { animation: heartPop 0.35s ease; }
+
+@keyframes heartPop {
+  0%   { transform: scale(0.6); }
+  60%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+
+.fav-btn.fav-btn-label {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 8px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: 50px;
+  background: #fff;
+  border: 1.5px solid var(--sand-2);
+  box-shadow: none;
+}
+.fav-btn.fav-btn-label:hover { transform: translateY(-2px); }
+.fav-btn.fav-btn-label.active {
+  color: #fff;
+  background: var(--hard);
+  border-color: var(--hard);
+}

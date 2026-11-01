@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react"; 
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux"; 
 import logo from "../assets/logo-t.png";
 import { IoIosLogOut } from "react-icons/io";
+import { getFavorites, clearFavorites } from "../features/FavoriteSlice"; 
 import "../style/Navbar.css";
 
-
-const isLoggedIn = () => {
+const getUser = () => {
   try {
-    return !!JSON.parse(localStorage.getItem("user"));
+    return JSON.parse(localStorage.getItem("user")) || null;
   } catch {
-    return false;
+    return null;
   }
 };
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const loggedIn = isLoggedIn();
+  const dispatch = useDispatch(); 
+  const user = getUser();
+  const loggedIn = !!user;
+
+  useEffect(() => {
+    if (user?._id) dispatch(getFavorites(user._id));
+  }, [dispatch, user?._id]);
 
   const handleLogout = () => {
     localStorage.removeItem("user");
+    dispatch(clearFavorites()); 
     navigate("/");
   };
 
@@ -48,7 +56,6 @@ const Navbar = () => {
             </li>
           </>
         ) : (
-          
           <>
             <li>
               <span className="guest-badge">GUEST</span>

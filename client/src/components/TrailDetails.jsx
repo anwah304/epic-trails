@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTrails } from "../features/TrailSlice";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import FavoriteButton from "./FavoriteButton"; 
 import "../style/TrailDetails.css";
 
 const TrailDetails = () => {
@@ -31,7 +32,6 @@ const TrailDetails = () => {
     );
   }
 
-  
   const getEmbedUrl = (lat, lng) => {
     if (!lat || !lng) return null;
     return `https://maps.google.com/maps?q=${lat},${lng}&z=15&output=embed`;
@@ -78,6 +78,9 @@ const TrailDetails = () => {
                 <span className="td-badge td-gov">
                   📍 {trail.governorate}
                 </span>
+
+                
+                <FavoriteButton trailId={trail._id} withLabel />
               </div>
             </div>
 

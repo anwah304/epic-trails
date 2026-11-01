@@ -95,6 +95,46 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/favorites/:userId", async (req, res) => {
+  try {
+    const { userId } = req.params;
+    if (!mongoose.isValidObjectId(userId)) {
+      return res.status(400).send({ message: "Invalid user" });
+    }
+
+    const user = await UserModel.findById(userId).select("favorites");
+    if (!user) return res.status(404).send({ message: "User not found" });
+
+    res.send({ favorites: user.favorites || [] });
+  } catch (error) {
+    res.status(500).send({ message: "Get Favorites Error.." + error });
+  }
+});
+
+app.post("/favorites/toggle", async (req, res) => {
+  try {
+    const { userId, trailId } = req.body;
+    if (!mongoose.isValidObjectId(userId) || !mongoose.isValidObjectId(trailId)) {
+      return res.status(400).send({ message: "Invalid data" });
+    }
+
+    const user = await UserModel.findById(userId).select("favorites");
+    if (!user) return res.status(404).send({ message: "User not found" });
+
+    const exists = user.favorites.includes(trailId);
+
+    await UserModel.updateOne(
+      { _id: userId },
+      exists ? { $pull: { favorites: trailId } } : { $addToSet: { favorites: trailId } }
+    );
+
+    const updated = await UserModel.findById(userId).select("favorites");
+    res.send({ favorites: updated.favorites });
+  } catch (error) {
+    res.status(500).send({ message: "Toggle Favorite Error.." + error });
+  }
+});
+
 app.post("/addTrail", async (req, res) => {
   try {
     const { name, level, governorate, image, description, location, lat, lng } = req.body;
@@ -129,12 +169,12 @@ app.get("/getTrails", async (req, res) => {
 app.delete("/deleteTrail/:id", async (req, res) => {
   try {
     await TrailModel.findByIdAndDelete(req.params.id);
+    await UserModel.updateMany({}, { $pull: { favorites: req.params.id } }); // ✅ جديد
     res.send({ message: "Trail Deleted Successfully" });
   } catch (error) {
     res.status(500).send("Delete Trail Error.." + error);
   }
 });
-
 app.put("/editTrail/:id", async (req, res) => {
   try {
     const { name, level, governorate, image, description, location, lat, lng } = req.body;

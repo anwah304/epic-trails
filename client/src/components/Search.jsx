@@ -3,6 +3,7 @@ import "../style/Search.css";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Reveal from "./Reveal";
+import FavoriteButton from "./FavoriteButton"; 
 import { TbMapSearch } from "react-icons/tb";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -57,11 +58,13 @@ const Search = () => {
           ) : filteredTrails.length === 0 ? (
             <p className="empty-text">No trails found</p>
           ) : (
-            filteredTrails.map((trail, i) => ( 
-              <Reveal key={trail._id} delay={i * 80}> 
-                <div className="dashboard-card"> 
+            filteredTrails.map((trail, i) => (
+              <Reveal key={trail._id} delay={i * 80}>
+                <div className="dashboard-card">
 
                   <img src={trail.image} alt={trail.name} />
+
+                  <FavoriteButton trailId={trail._id} /> 
 
                   <div className="card-content">
 
@@ -77,7 +80,7 @@ const Search = () => {
                   </div>
 
                 </div>
-              </Reveal> 
+              </Reveal>
             ))
           )}
 

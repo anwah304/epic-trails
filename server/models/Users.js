@@ -26,6 +26,10 @@ const UserSchema = mongoose.Schema({
         type: String,
         enum: ["Male", "Female"]
     },
+    favorites: {
+        type: [String],
+        default: []
+    },
 
     resetPasswordToken: {
         type: String
