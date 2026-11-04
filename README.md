@@ -1,28 +1,6 @@
-Claude
-/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Readme · MD
 <div align="center">
-# 🏔️ Epic Trails
+ 🏔️ Epic Trails
  
 **Discover the most beautiful hiking trails in the Sultanate of Oman.**
  
@@ -418,4 +396,4 @@ The logo and palette are inspired by Oman's Hajar mountains: warm rock tones, a 
  
 Designed and developed as a Full-Stack Development course project.
  
-Claude finished the response
+
