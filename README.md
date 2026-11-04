@@ -1,33 +1,42 @@
+Claude
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Readme · MD
 <div align="center">
-
 # 🏔️ Epic Trails
-
+ 
 **Discover the most beautiful hiking trails in the Sultanate of Oman.**
-
+ 
 A full-stack web platform for exploring trails across all 11 governorates, meeting local guides and checking live weather, with a complete admin dashboard.
-
-![Home](screenshots/HomePage.png)
-![User Registration](screenshots/Register.png)
-![User Login](screenshots/LoginPage.png)
-![Forgot Password](screenshots/ForgetPass.png)
-![Password Reset Verification](screenshots/VerifyReset.png)
-![Explore Governorates](screenshots/GovernoratesPage.png)
-![Trail Details](screenshots/DetailsPage.png)
-![All Hiking Trails](screenshots/AllTrails.png)
-![User Profile](screenshots/Profile.png)
-![Weather Updates](screenshots/WeatherPage.png)
-![Local Hiking Guides](screenshots/GuidesPage.png)
-
-
+ 
 *Full-Stack Development course project*
-
+ 
 </div>
-
 ---
-
+ 
 ## Table of Contents
-
+ 
 - [About the Project](#about-the-project)
+- [Screenshots](#screenshots)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Architecture](#architecture)
@@ -40,34 +49,56 @@ A full-stack web platform for exploring trails across all 11 governorates, meeti
 - [Security](#security)
 - [Design System](#design-system)
 - [Roadmap](#roadmap)
-- [Author](#author)
-
+- [Developed By](#developed-by)
 ---
-
+ 
 ## About the Project
-
+ 
 Epic Trails was built as a **Full-Stack Development course project**. It covers the complete stack: a React single-page application, a REST API built with Express, and a MongoDB database, together with authentication, email verification, third-party API integration and an admin panel.
-
+ 
 The idea is simple: Oman has remarkable mountain, wadi and coastal trails, but they are hard to find in one place. Epic Trails lets hikers browse trails by governorate or difficulty, view each trail on a map, find a guide and check the weather before heading out. Administrators manage all the content through a dedicated dashboard.
-
-<!--
-Add screenshots here, for example:
-
-| Home | Trail Details |
-|---|---|
-| ![Home](screenshots/home.png) | ![Trail](screenshots/trail.png) |
-
-| Weather | Admin Dashboard |
-|---|---|
-| ![Weather](screenshots/weather.png) | ![Admin](screenshots/admin.png) |
--->
-
+ 
 ---
-
+ 
+## Screenshots
+ 
+<p align="center"><i>Click any screenshot to view it in full size.</i></p>
+<table align="center">
+  <tr>
+    <td align="center" width="33%"><a href="screenshots/HomePage.png"><img src="screenshots/HomePage.png" alt="Home page" width="270" height="152"></a><br><b>Home</b></td>
+    <td align="center" width="33%"><a href="screenshots/Register.png"><img src="screenshots/Register.png" alt="User registration" width="270" height="152"></a><br><b>Register</b></td>
+    <td align="center" width="33%"><a href="screenshots/LoginPage.png"><img src="screenshots/LoginPage.png" alt="User login" width="270" height="152"></a><br><b>Login</b></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><a href="screenshots/ForgetPass.png"><img src="screenshots/ForgetPass.png" alt="Forgot password" width="270" height="152"></a><br><b>Forgot Password</b></td>
+    <td align="center" width="33%"><a href="screenshots/VerifyReset.png"><img src="screenshots/VerifyReset.png" alt="Password reset verification" width="270" height="152"></a><br><b>Verify Code &amp; Reset</b></td>
+    <td align="center" width="33%"><a href="screenshots/GovernoratesPage.png"><img src="screenshots/GovernoratesPage.png" alt="Explore governorates" width="270" height="152"></a><br><b>Governorates</b></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><a href="screenshots/AllTrails.png"><img src="screenshots/AllTrails.png" alt="All hiking trails" width="270" height="152"></a><br><b>All Trails</b></td>
+    <td align="center" width="33%"><a href="screenshots/DetailsPage.png"><img src="screenshots/DetailsPage.png" alt="Trail details" width="270" height="152"></a><br><b>Trail Details</b></td>
+    <td align="center" width="33%"><a href="screenshots/WeatherPage.png"><img src="screenshots/WeatherPage.png" alt="Weather updates" width="270" height="152"></a><br><b>Weather</b></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><a href="screenshots/GuidesPage.png"><img src="screenshots/GuidesPage.png" alt="Local hiking guides" width="270" height="152"></a><br><b>Guides</b></td>
+    <td align="center" width="33%"><a href="screenshots/Profile.png"><img src="screenshots/Profile.png" alt="User profile" width="270" height="152"></a><br><b>Profile</b></td>
+    <td align="center" width="33%"><a href="screenshots/AdminDashbord.png"><img src="screenshots/AdminDashbord.png" alt="Admin dashboard" width="270" height="152"></a><br><b>Admin Dashboard</b></td>
+  </tr>
+  <tr>
+    <td align="center" width="33%"><a href="screenshots/manageTrails.png"><img src="screenshots/manageTrails.png" alt="Manage trails" width="270" height="152"></a><br><b>Manage Trails</b></td>
+    <td align="center" width="33%"><a href="screenshots/AddTrails.png"><img src="screenshots/AddTrails.png" alt="Add trail" width="270" height="152"></a><br><b>Add Trail</b></td>
+    <td align="center" width="33%"><a href="screenshots/ManageGuides.png"><img src="screenshots/ManageGuides.png" alt="Manage guides" width="270" height="152"></a><br><b>Manage Guides</b></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="3"><a href="screenshots/AddGuide.png"><img src="screenshots/AddGuide.png" alt="Add guide" width="270" height="152"></a><br><b>Add Guide</b></td>
+  </tr>
+</table>
+---
+ 
 ## Features
-
+ 
 ### For hikers
-
+ 
 | Feature | Description |
 |---|---|
 | **Browse by governorate** | Cards for all 11 governorates of Oman with a live trail count for each |
@@ -82,20 +113,20 @@ Add screenshots here, for example:
 | **Guest mode** | Browse the whole site without an account; profile access is hidden and protected |
 | **Animations** | Scroll-reveal cards, animated counters and floating elements, with `prefers-reduced-motion` support |
 | **Responsive design** | Layouts adapt from desktop down to small mobile screens |
-
+ 
 ### For administrators
-
+ 
 | Feature | Description |
 |---|---|
 | **Dashboard** | Live statistics for total trails, guides and registered users |
 | **Trail management** | Add, edit and delete trails (with coordinates, level, governorate and image) |
 | **Guide management** | Add, edit and delete guides, with automatic default avatar by gender |
 | **Safe deletion** | Confirmation prompt before any delete action |
-
+ 
 ---
-
+ 
 ## Tech Stack
-
+ 
 | Layer | Technologies |
 |---|---|
 | **Frontend** | React, Vite, Redux Toolkit, React Router, reactstrap, React Hook Form, Yup, Axios, React Icons |
@@ -103,11 +134,11 @@ Add screenshots here, for example:
 | **Database** | MongoDB Atlas |
 | **External services** | WeatherAPI.com (weather), Gmail SMTP (verification emails), Google Maps embed (trail location) |
 | **Styling** | Custom CSS with design tokens, Playfair Display and Montserrat |
-
+ 
 ---
-
+ 
 ## Architecture
-
+ 
 ```mermaid
 flowchart LR
     A["React + Vite client"] -->|"REST / JSON"| B["Express API :3004"]
@@ -116,15 +147,14 @@ flowchart LR
     A -->|"Weather requests"| E["WeatherAPI.com"]
     A -->|"Map embed"| F["Google Maps"]
 ```
-
+ 
 - The **client** keeps trails, guides and the user session in Redux slices (`UserSlice`, `TrailSlice`, `GuideSlice`, `FavoriteSlice`) and talks to the API with Axios.
 - The **server** exposes REST endpoints, hashes passwords with bcrypt and sends verification codes through Nodemailer.
 - **MongoDB** stores users, trails and guides in three collections.
-
 ---
-
+ 
 ## Project Structure
-
+ 
 ```
 epic-trails/
 ├── client/                      # React frontend (Vite)
@@ -145,103 +175,105 @@ epic-trails/
 │       ├── _test_/              # tests for Redux slices
 │       ├── App.jsx
 │       └── store.js
-└── server/                      # Express backend
-    ├── models/                  # Mongoose models (Users, Trails, Guides)
-    └── index.js                 # API routes
+├── server/                      # Express backend
+│   ├── models/                  # Mongoose models (Users, Trails, Guides)
+│   └── index.js                 # API routes
+└── screenshots/                 # images used in this README
 ```
-
+ 
 ---
-
+ 
 ## Getting Started
-
+ 
 ### Prerequisites
-
+ 
 - **Node.js 18** or later
 - A **MongoDB** database (a free [MongoDB Atlas](https://www.mongodb.com/atlas) cluster works)
 - A **WeatherAPI.com** key, from a free account at [weatherapi.com](https://www.weatherapi.com/)
 - *(Optional)* A **Gmail** account with an [App Password](https://myaccount.google.com/apppasswords) to send verification codes
-
 ### 1. Clone the repository
-
+ 
 ```bash
 git clone https://github.com/anwah304/epic-trails.git
 cd epic-trails
 ```
-
+ 
 ### 2. Set up and run the server
-
+ 
 ```bash
 cd server
 npm install
 ```
-
+ 
 Create a `server/.env` file (see [Environment Variables](#environment-variables)), then start the API:
-
+ 
 ```bash
-node index.js
+npm run dev
 ```
-
-The API runs on **http://localhost:3004**.
-
+ 
+The API runs on **http://localhost:3004** and restarts automatically when you edit a file.
+ 
 ### 3. Set up and run the client
-
+ 
 Open a second terminal:
-
+ 
 ```bash
 cd client
 npm install
 ```
-
+ 
 Create a `client/.env` file with your weather key, then start the app:
-
+ 
 ```bash
 npm run dev
 ```
-
+ 
 The app runs on **http://localhost:5173**.
-
+ 
 ### 4. Create an admin account
-
+ 
 Register a normal account from the app, then change its `role` field from `"user"` to `"admin"` in your MongoDB `Users` collection. Logging in with that account opens the admin dashboard.
-
+ 
 ---
-
+ 
 ## Environment Variables
-
+ 
 The client and the server each have **their own** `.env` file. Both are ignored by Git.
-
+ 
 ### `server/.env`
-
+ 
 | Variable | Required | Description |
 |---|---|---|
 | `MONGO_URI` | Yes | MongoDB connection string |
 | `CLIENT_URL` | Yes | Frontend address (default `http://localhost:5173`) |
 | `EMAIL_USER` | For OTP emails | Gmail address that sends the verification codes |
 | `EMAIL_PASS` | For OTP emails | Gmail **App Password** (not your account password) |
-
+ 
 ```env
 MONGO_URI=your_mongodb_connection_string
 CLIENT_URL=http://localhost:5173
 EMAIL_USER=youremail@gmail.com
 EMAIL_PASS=your_16_character_app_password
 ```
-
+ 
+> The server does not watch `.env`. Restart it (`Ctrl + C`, then `npm run dev`) after changing a value.
+ 
 ### `client/.env`
-
+ 
 | Variable | Required | Description |
 |---|---|---|
 | `VITE_WEATHER_API_KEY` | Yes | WeatherAPI.com key used by the Weather page |
-
+ 
 ```env
 VITE_WEATHER_API_KEY=your_weatherapi_key
 ```
-
+ 
 > Vite reads `.env` from the client root (next to `package.json`), and only variables prefixed with `VITE_` reach the browser. Restart `npm run dev` after editing it.
-
+ 
 ---
-
+ 
 ## Application Routes
-
+ 
 | Path | Page | Access |
 |---|---|---|
 | `/` | Landing page | Public |
@@ -255,15 +287,15 @@ VITE_WEATHER_API_KEY=your_weatherapi_key
 | `/profile` | User profile | Logged-in users (guests are redirected to login) |
 | `/admin`, `/admin/trails`, `/admin/guides` | Admin dashboard and management | Admin |
 | `/add-trail`, `/edit-trail/:id`, `/add-guide`, `/edit-guide/:id` | Admin forms | Admin |
-
+ 
 ---
-
+ 
 ## API Reference
-
+ 
 Base URL: `http://localhost:3004`
-
+ 
 ### Authentication and users
-
+ 
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/register` | Create an account |
@@ -272,40 +304,40 @@ Base URL: `http://localhost:3004`
 | POST | `/reset-password` | Verify the code and set a new password |
 | GET | `/Users` | List users (password and reset fields excluded) |
 | GET | `/usersCount` | Number of registered (non-admin) users |
-
+ 
 ### Favorites
-
+ 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/favorites/:userId` | Get the IDs of a user's favorite trails |
 | POST | `/favorites/toggle` | Add or remove a trail from a user's favorites (`{ userId, trailId }`) |
-
+ 
 Deleting a trail also removes it from every user's favorites.
-
+ 
 ### Trails
-
+ 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/getTrails` | List all trails |
 | POST | `/addTrail` | Add a trail |
 | PUT | `/editTrail/:id` | Update a trail |
 | DELETE | `/deleteTrail/:id` | Delete a trail |
-
+ 
 ### Guides
-
+ 
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/getGuides` | List all guides |
 | POST | `/addGuide` | Add a guide |
 | PUT | `/editGuide/:id` | Update a guide |
 | DELETE | `/deleteGuide/:id` | Delete a guide |
-
+ 
 ---
-
+ 
 ## Data Models
-
+ 
 **Users**
-
+ 
 | Field | Type | Notes |
 |---|---|---|
 | `email` | String | Required, unique |
@@ -318,27 +350,27 @@ Deleting a trail also removes it from every user's favorites.
 | `resetPasswordToken` | String | Hashed OTP, temporary |
 | `resetPasswordExpires` | Date | OTP expiry time |
 | `resetPasswordAttempts` | Number | Wrong-code counter |
-
+ 
 **Trails**
-
+ 
 | Field | Type |
 |---|---|
 | `name`, `description`, `image` | String |
 | `level` | `EASY`, `MEDIUM` or `HARD` |
 | `governorate` | One of the 11 governorates |
 | `lat`, `lng` | Coordinates used for the map |
-
+ 
 **Guides**
-
+ 
 | Field | Type |
 |---|---|
 | `name`, `specialty`, `phone`, `email`, `description`, `image` | String |
 | `gender` | `Male` or `Female` |
-
+ 
 ---
-
+ 
 ## Security
-
+ 
 | Area | Implementation |
 |---|---|
 | **Passwords** | Hashed with bcrypt (10 salt rounds), never returned by the API |
@@ -347,11 +379,11 @@ Deleting a trail also removes it from every user's favorites.
 | **Account privacy** | The reset endpoint gives the same response whether or not the email exists |
 | **Secrets** | Database URI and email credentials live in `server/.env`, which is git-ignored |
 | **Guest mode** | `/profile` redirects guests to the login page |
-
+ 
 ---
-
+ 
 ## Design System
-
+ 
 | Token | Value | Use |
 |---|---|---|
 | Forest | `#1f2d24` | Navigation, footer, dark surfaces |
@@ -360,13 +392,13 @@ Deleting a trail also removes it from every user's favorites.
 | Sunset | `#c8793a` | Buttons and highlights |
 | Gold | `#f5c711` | Accent lines and badges |
 | Fonts | Playfair Display, Montserrat | Headings and body text |
-
+ 
 The logo and palette are inspired by Oman's Hajar mountains: warm rock tones, a golden sun and date palms.
-
+ 
 ---
-
+ 
 ## Roadmap
-
+ 
 - [x] Browse trails by governorate and difficulty
 - [x] Trail details with embedded map
 - [x] Authentication, guest mode and profile
@@ -378,13 +410,12 @@ The logo and palette are inspired by Oman's Hajar mountains: warm rock tones, a 
 - [ ] Move weather requests behind the server to keep the API key private
 - [ ] Reviews and ratings for trails
 - [ ] Deploy the application online
-
 ---
-
-## Author
-
+ 
+## Developed By
+ 
 **Anwah Ibrahim AL-Sinani**
-
+ 
 Designed and developed as a Full-Stack Development course project.
-
-GitHub: [@anwah304](https://github.com/anwah304)
+ 
+Claude finished the response
